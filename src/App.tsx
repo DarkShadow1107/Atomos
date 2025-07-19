@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import { useState, useEffect } from "react";
 import { Navbar, PeriodicTable, ElementModal } from "./components";
 import elementsData, { periodicTableRows } from "./data/elements";
 import "./App.css";
