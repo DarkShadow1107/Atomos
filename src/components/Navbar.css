@@ -131,9 +131,49 @@ main {
 	align-items: center;
 	min-width: 260px;
 	position: absolute;
-	right: 32px;
+	right: 180px;
 	top: 12px;
 	height: 40px;
 	justify-content: flex-end;
 	z-index: 200;
+}
+
+.navbar-controls {
+	position: absolute;
+	right: 32px;
+	top: 12px;
+	display: flex;
+	align-items: center;
+	gap: 16px;
+	z-index: 201;
+}
+
+.fullscreen-button {
+	background: rgba(46, 205, 192, 0.1);
+	border: 1px solid rgba(46, 205, 192, 0.3);
+	color: #8f8f8f;
+	cursor: pointer;
+	padding: 10px;
+	border-radius: 6px;
+	transition: all 0.2s ease;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	width: 40px;
+	height: 40px;
+	backdrop-filter: blur(10px);
+}
+
+.fullscreen-button:hover {
+	color: #328b99;
+	background-color: rgba(46, 205, 192, 0.1);
+	text-shadow: 0 2px 12px #2ecdc088;
+}
+
+.fullscreen-button:active {
+	transform: scale(0.95);
+}
+
+.fullscreen-button svg {
+	pointer-events: none;
 }

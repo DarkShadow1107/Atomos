@@ -577,6 +577,11 @@
 .theme-dracula .periodic-table-html td .name {
 	color: #bd93f9;
 }
+.theme-cyberpunk .periodic-table-html td .name {
+	color: #ff66ff;
+	text-shadow: 0 0 6px rgba(255, 102, 255, 0.5), 0 1px 3px rgba(255, 102, 255, 0.4);
+	font-weight: 500;
+}
 .theme-win98 .periodic-table-html td .name {
 	color: #000;
 }
@@ -1114,6 +1119,48 @@
 	box-shadow: 0 8px 32px rgba(255, 85, 85, 0.25);
 	border: 2px solid #ff5555;
 }
+
+/* Enhanced grey text readability for dark themes */
+.theme-high-contrast .modal-content .close-btn {
+	color: #ffffff !important;
+}
+.theme-high-contrast .modal-content p {
+	color: #ffffff !important;
+}
+.theme-high-contrast .modal-content h2 {
+	color: #ffffff !important;
+}
+
+.theme-night .modal-content .close-btn {
+	color: #e0e7ef !important;
+}
+.theme-night .modal-content p {
+	color: #e0e7ef !important;
+}
+.theme-night .modal-content h2 {
+	color: #e0e7ef !important;
+}
+
+.theme-amoled .modal-content .close-btn {
+	color: #b2fefa !important;
+}
+.theme-amoled .modal-content p {
+	color: #b2fefa !important;
+}
+.theme-amoled .modal-content h2 {
+	color: #b2fefa !important;
+}
+
+.theme-dracula .modal-content .close-btn {
+	color: #f8f8f2 !important;
+}
+.theme-dracula .modal-content p {
+	color: #f8f8f2 !important;
+}
+.theme-dracula .modal-content h2 {
+	color: #f8f8f2 !important;
+}
+
 .theme-cyberpunk .modal-content {
 	background: #1a1a2e;
 	color: #00ffff;
