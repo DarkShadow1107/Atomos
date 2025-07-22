@@ -1957,11 +1957,9 @@ main {
 	left: 2px;
 }
 .theme-dark-glass {
-	background: linear-gradient(135deg, #0a0a0a 0%, #1a1a1a 25%, #0f0f0f 50%, #151515 75%, #0a0a0a 100%) !important;
+	background: linear-gradient(135deg, #0a0a0a 0%, #1a1a1a 50%, #0a0a0a 100%) !important;
 	color: #f5f5f7;
 	font-family: -apple-system, BlinkMacSystemFont, "SF Pro Display", "Helvetica Neue", sans-serif;
-	backdrop-filter: blur(20px);
-	-webkit-backdrop-filter: blur(20px);
 }
 
 .theme-dark-glass .periodic-table-html {
@@ -1969,34 +1967,22 @@ main {
 	color: #f5f5f7;
 	border: 1px solid rgba(255, 255, 255, 0.12);
 	border-radius: 20px;
-	backdrop-filter: blur(60px) saturate(2.2) brightness(1.1);
-	-webkit-backdrop-filter: blur(60px) saturate(2.2) brightness(1.1);
-	box-shadow: 0 16px 48px rgba(0, 0, 0, 0.4), 0 8px 24px rgba(0, 0, 0, 0.2), 0 1px 2px rgba(255, 255, 255, 0.15) inset,
-		0 -1px 2px rgba(0, 0, 0, 0.1) inset;
+	box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
 	transform: scale(0.745) !important;
 	margin-top: -4% !important;
-	transition: all 0.2s cubic-bezier(0.25, 0.46, 0.45, 0.94);
 }
 
 .theme-dark-glass .periodic-table-html td {
 	color: #f5f5f7;
 	background: rgba(48, 48, 52, 0.7);
 	border: 1px solid rgba(255, 255, 255, 0.1);
-	border-radius: 12px;
-	backdrop-filter: blur(30px) saturate(1.8) brightness(1.05);
-	-webkit-backdrop-filter: blur(30px) saturate(1.8) brightness(1.05);
-	box-shadow: 0 4px 12px rgba(0, 0, 0, 0.25), 0 1px 3px rgba(0, 0, 0, 0.1), 0 1px 0 rgba(255, 255, 255, 0.12) inset;
-	transition: all 0.15s cubic-bezier(0.4, 0, 0.2, 1);
-	will-change: transform, box-shadow, background;
+	border-radius: 8px;
+	box-shadow: 0 1px 3px rgba(0, 0, 0, 0.2);
 }
 
 .theme-dark-glass .periodic-table-html td:hover:not(.none):not(.act_lan) {
 	background: rgba(64, 64, 70, 0.85) !important;
-	border: 1px solid rgba(255, 255, 255, 0.25) !important;
-	transform: translateY(-1px) scale(1.01) !important;
-	box-shadow: 0 12px 32px rgba(0, 0, 0, 0.35), 0 6px 16px rgba(0, 0, 0, 0.2), 0 2px 6px rgba(255, 255, 255, 0.15) inset !important;
-	backdrop-filter: blur(40px) saturate(2.5) brightness(1.15) !important;
-	-webkit-backdrop-filter: blur(40px) saturate(2.5) brightness(1.15) !important;
+	border: 1px solid rgba(255, 255, 255, 0.2) !important;
 }
 
 .theme-dark-glass .periodic-table-html td .atomic-number {
@@ -2083,22 +2069,42 @@ main {
 	background: linear-gradient(145deg, rgba(28, 28, 30, 0.95) 0%, rgba(22, 22, 24, 0.92) 50%, rgba(28, 28, 30, 0.95) 100%);
 	color: #f5f5f7;
 	border: 1px solid rgba(255, 255, 255, 0.18);
-	border-radius: 28px;
-	backdrop-filter: blur(120px) saturate(3.2) brightness(1.15) contrast(1.1);
-	-webkit-backdrop-filter: blur(120px) saturate(3.2) brightness(1.15) contrast(1.1);
-	box-shadow: 0 40px 120px rgba(0, 0, 0, 0.6), 0 20px 60px rgba(0, 0, 0, 0.4), 0 8px 24px rgba(0, 0, 0, 0.2),
-		0 2px 8px rgba(255, 255, 255, 0.15) inset, 0 -2px 8px rgba(0, 0, 0, 0.1) inset;
-	transition: all 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94);
-	position: relative;
-	overflow: hidden;
+	border-radius: 16px;
+	box-shadow: 0 8px 32px rgba(0, 0, 0, 0.4);
+	animation: darkGlassModalFadeIn 0.18s ease-out;
 }
 
 .theme-dark-glass .modal-content:hover {
 	border: 1px solid rgba(255, 255, 255, 0.25) !important;
-	box-shadow: 0 50px 140px rgba(0, 0, 0, 0.65), 0 25px 70px rgba(0, 0, 0, 0.45), 0 12px 32px rgba(0, 0, 0, 0.25),
-		0 4px 12px rgba(255, 255, 255, 0.18) inset, 0 -4px 12px rgba(0, 0, 0, 0.12) inset !important;
-	backdrop-filter: blur(140px) saturate(3.5) brightness(1.2) contrast(1.15) !important;
-	-webkit-backdrop-filter: blur(140px) saturate(3.5) brightness(1.2) contrast(1.15) !important;
+	box-shadow: 0 12px 40px rgba(0, 0, 0, 0.5) !important;
+}
+
+/* Smooth fade-in animation for dark glass modal */
+@keyframes darkGlassModalFadeIn {
+	0% {
+		opacity: 0;
+		transform: scale(0.9) translateY(10px);
+	}
+	100% {
+		opacity: 1;
+		transform: scale(1) translateY(0);
+	}
+}
+
+/* Smooth fade-out animation for dark glass modal */
+.theme-dark-glass .modal-backdrop.closing .modal-content {
+	animation: darkGlassModalFadeOut 0.12s ease-in forwards;
+}
+
+@keyframes darkGlassModalFadeOut {
+	0% {
+		opacity: 1;
+		transform: scale(1) translateY(0);
+	}
+	100% {
+		opacity: 0;
+		transform: scale(0.95) translateY(-5px);
+	}
 }
 
 /* Dynamic element symbol styling with Apple colors */
