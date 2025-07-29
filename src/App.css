@@ -104,7 +104,7 @@
 	border: 2px solid #ff0;
 
 	transform: scale(0.73);
-	margin-top: -4.5%; /* Move table higher */
+	margin-top: -4.6%; /* Move table higher */
 }
 .theme-night .periodic-table-html {
 	background: #232526;
@@ -134,41 +134,46 @@
 	margin-top: -4.9%; /* Move table higher */
 }
 .theme-win98 .periodic-table-html {
-	background: #fcfcfc;
-	color: #000;
-	border-top: 2px solid #fff;
-	border-left: 2px solid #fff;
-	border-bottom: 2px solid #808080;
-	border-right: 2px solid #808080;
-	border-radius: 0;
-	box-shadow: none;
-	transform: scale(0.68) !important;
-	margin-top: -6.7% !important;
-}
-.theme-win98 .periodic-table-html td {
 	color: #000;
 	background: #e0e0e0;
 	border-top: 2px solid #fff;
 	border-left: 2px solid #fff;
 	border-bottom: 2px solid #808080;
 	border-right: 2px solid #808080;
-	box-shadow: none;
-	padding: 6px 10px;
-	font-size: 1em;
+	border-radius: 0;
+	transform: scale(0.65) !important;
+	margin-top: -8.2%;
+	box-shadow: none !important;
+	filter: none !important;
+	padding: 9px 14px 8px 14px;
+	font-size: 1.06em;
 	font-family: "Tahoma", "Geneva", sans-serif;
+	outline: none;
+	transition: background 0.08s, border-color 0.08s;
 }
 .theme-win98 .periodic-table-html td:hover:not(.none):not(.act_lan) {
-	background: #c0c0c0 !important;
-	color: #000080 !important;
-	border-top: 2px solid #808080;
-	border-left: 2px solid #808080;
-	border-bottom: 2px solid #fff;
-	border-right: 2px solid #fff;
-	cursor: pointer;
-	transform: none;
-	filter: none;
-	box-shadow: none;
-	transition: none;
+	background: #d4d0c8 !important;
+	color: #000;
+	border-top: 2px solid #808080 !important;
+	border-left: 2px solid #808080 !important;
+	border-bottom: 2px solid #fff !important;
+	border-right: 2px solid #fff !important;
+	box-shadow: none !important;
+	filter: none !important;
+	outline: none;
+	transition: background 0.08s, border-color 0.08s;
+}
+.theme-win98 .periodic-table-html td:active:not(.none):not(.act_lan) {
+	background: #b0b0b0 !important;
+	color: #000;
+	border-top: 2px solid #808080 !important;
+	border-left: 2px solid #808080 !important;
+	border-bottom: 2px solid #fff !important;
+	border-right: 2px solid #fff !important;
+	box-shadow: none !important;
+	filter: none !important;
+	outline: none;
+	transition: background 0.08s, border-color 0.08s;
 }
 .theme-win98 .periodic-table-html td .atomic-number {
 	color: #000080;
@@ -213,17 +218,7 @@
 	padding-right: 16px;
 	font-size: 0.9em;
 }
-.theme-win98 .navbar h1,
-.theme-win98 .navbar .heading {
-	font-family: "Tahoma", "Geneva", sans-serif !important;
-	color: #000 !important;
-	text-shadow: none !important;
-	font-weight: bold !important;
-	font-size: 1.8rem !important;
-	letter-spacing: 1px !important;
-}
-/* Windows 98 menu styling */
-.theme-win98 .menu,
+/* Windows 98 dropdown menu styling */
 .theme-win98 .dropdown-menu {
 	background: #f0f0f0;
 	border-top: 2px solid #fff;
@@ -234,13 +229,11 @@
 	font-family: "Tahoma", "Geneva", sans-serif;
 	font-size: 0.9em;
 }
-.theme-win98 .menu-item,
 .theme-win98 .dropdown-item {
 	padding: 4px 8px;
 	color: #000;
 	background: transparent;
 }
-.theme-win98 .menu-item:hover,
 .theme-win98 .dropdown-item:hover {
 	background: #000080 !important;
 	color: #fff !important;
@@ -300,23 +293,10 @@
 	border-left: 2px solid #fff;
 	border-bottom: 2px solid #808080;
 	border-right: 2px solid #808080;
-	border-radius: 2px;
+	border-radius: 0;
 	box-shadow: none;
 }
-.theme-win98 .modal-header {
-	background: #000080;
-	color: #fff;
-	font-family: "Tahoma", "Geneva", sans-serif;
-	font-weight: bold;
-	font-size: 0.9em;
-	padding: 4px 8px;
-	margin: -18px -20px 12px -20px;
-	border-bottom: 1px solid #808080;
-}
-.theme-win98 .close-button,
-.theme-win98 .modal-close,
-.theme-win98 button.close,
-.theme-win98 [class*="close"] {
+.theme-win98 .close-btn {
 	background: #e0e0e0 !important;
 	color: #000 !important;
 	border-top: 2px solid #fff !important;
@@ -336,10 +316,7 @@
 	min-width: 20px !important;
 	text-align: center !important;
 }
-.theme-win98 .close-button:hover,
-.theme-win98 .modal-close:hover,
-.theme-win98 button.close:hover,
-.theme-win98 [class*="close"]:hover {
+.theme-win98 .close-btn:hover {
 	background: #ff0000 !important;
 	color: #fff !important;
 	border-top: 2px solid #ff4444 !important;
@@ -348,10 +325,7 @@
 	border-right: 2px solid #cc0000 !important;
 	cursor: pointer !important;
 }
-.theme-win98 .close-button:active,
-.theme-win98 .modal-close:active,
-.theme-win98 button.close:active,
-.theme-win98 [class*="close"]:active {
+.theme-win98 .close-btn:active {
 	background: #cc0000 !important;
 	border-top: 2px solid #990000 !important;
 	border-left: 2px solid #990000 !important;
@@ -476,7 +450,14 @@
 	border-left: 2px solid #fff;
 	border-bottom: 2px solid #808080;
 	border-right: 2px solid #808080;
-	box-shadow: none;
+	border-radius: 0;
+	box-shadow: none !important;
+	filter: none !important;
+	padding: 8px 13px 7px 13px;
+	font-size: 1em;
+	font-family: "Tahoma", "Geneva", sans-serif;
+	outline: none;
+	transition: background 0.08s, border-color 0.08s;
 }
 .theme-dark .periodic-table-html td .atomic-number {
 	color: #7fd7e0;
@@ -967,7 +948,7 @@
 	border-left: 2px solid #fff;
 	border-bottom: 2px solid #808080;
 	border-right: 2px solid #808080;
-	border-radius: 2px;
+	border-radius: 0;
 	box-shadow: none;
 }
 .theme-dark .navbar {
@@ -1190,7 +1171,7 @@
 	border-left: 2px solid #fff;
 	border-bottom: 2px solid #808080;
 	border-right: 2px solid #808080;
-	border-radius: 2px;
+	border-radius: 0;
 	box-shadow: none;
 	font-family: "Tahoma", "Geneva", sans-serif;
 }
@@ -1560,6 +1541,7 @@
 	backdrop-filter: blur(30px) saturate(2.5) brightness(1.1);
 	-webkit-backdrop-filter: blur(30px) saturate(2.5) brightness(1.1);
 	box-shadow: 0 6px 20px rgba(0, 0, 0, 0.25), 0 2px 8px rgba(0, 0, 0, 0.15), 0 1px 0 rgba(255, 255, 255, 0.15) inset;
+	transition: all 0.04s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
 .theme-dark-glass .dropdown-trigger:hover {
@@ -1583,8 +1565,13 @@
 	border-radius: 20px;
 }
 
+.theme-dark-glass .dropdown-menu.open {
+	animation: dropdownAppear 0.09s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+
 .theme-dark-glass .dropdown-item {
 	color: #ffffff;
+	transition: all 0.02s cubic-bezier(0.25, 0.46, 0.45, 0.94);
 }
 
 .theme-dark-glass .dropdown-item:hover {
@@ -1830,21 +1817,7 @@ html {
 	overflow: hidden;
 }
 .header {
-	padding: 12px 0 0 0;
-	text-align: center;
-	margin-bottom: 0;
-	margin-top: 36px;
-}
-.heading {
-	font-size: 2.8rem;
-	color: #2ecdc0;
-	font-family: "SF Pro Text", Helvetica, Arial, sans-serif;
-	letter-spacing: 2px;
-	margin: 0 0 8px 0;
-	text-align: center;
-	text-shadow: 0 2px 16px #23252644;
-	font-weight: 700;
-	margin-top: 0;
+	display: none;
 }
 main {
 	display: flex;
@@ -1860,14 +1833,6 @@ main {
 .search-bar {
 	margin-top: 8px;
 }
-@media (max-width: 1200px) {
-	.heading {
-		font-size: 1.5rem;
-	}
-	.header {
-		padding: 6px 0 0 0;
-	}
-}
 .theme-light .periodic-table-html td:hover:not(.none):not(.act_lan) {
 	filter: brightness(110%) drop-shadow(0 0 8px #537dc1);
 	box-shadow: 0 6px 24px 0 rgba(50, 139, 153, 0.18);
@@ -1878,30 +1843,6 @@ main {
 	transition: background 0.18s, color 0.18s, filter 0.18s, box-shadow 0.18s, transform 0.12s;
 }
 
-/* Windows 98 tooltip styling */
-.theme-win98 .tooltip,
-.theme-win98 [data-tooltip]::after {
-	background: #ffffe1 !important;
-	color: #000 !important;
-	border: 1px solid #000 !important;
-	font-family: "Tahoma", "Geneva", sans-serif !important;
-	font-size: 0.85em !important;
-	padding: 2px 4px !important;
-	box-shadow: none !important;
-	border-radius: 0 !important;
-}
-/* Windows 98 status bar styling */
-.theme-win98 .status-bar {
-	background: #c0c0c0;
-	border-top: 2px solid #808080;
-	border-left: 2px solid #808080;
-	border-bottom: 2px solid #fff;
-	border-right: 2px solid #fff;
-	font-family: "Tahoma", "Geneva", sans-serif;
-	font-size: 0.85em;
-	padding: 4px 8px;
-	color: #000;
-}
 /* Windows 98 text selection */
 .theme-win98 ::selection {
 	background: #000080 !important;
@@ -2009,7 +1950,7 @@ main {
 	backdrop-filter: blur(60px) saturate(2.2) brightness(1.1);
 	-webkit-backdrop-filter: blur(60px) saturate(2.2) brightness(1.1);
 	box-shadow: 0 24px 64px rgba(0, 0, 0, 0.4), 0 12px 32px rgba(0, 0, 0, 0.2), 0 2px 4px rgba(255, 255, 255, 0.12) inset;
-	transition: all 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+	transition: all 0.09s cubic-bezier(0.25, 0.46, 0.45, 0.94);
 }
 
 .theme-dark-glass .navbar {
@@ -2020,11 +1961,10 @@ main {
 	backdrop-filter: blur(60px) saturate(2.2) brightness(1.1);
 	-webkit-backdrop-filter: blur(60px) saturate(2.2) brightness(1.1);
 	box-shadow: 0 4px 16px rgba(0, 0, 0, 0.15), 0 1px 0 rgba(255, 255, 255, 0.08) inset;
-	transition: all 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+	transition: all 0.09s cubic-bezier(0.25, 0.46, 0.45, 0.94);
 }
 
-.theme-dark-glass .navbar h1,
-.theme-dark-glass .navbar .heading {
+.theme-dark-glass .navbar h1 {
 	color: #f5f5f7 !important;
 	text-shadow: 0 3px 12px rgba(0, 0, 0, 0.4), 0 1px 3px rgba(0, 0, 0, 0.6) !important;
 	font-weight: 700 !important;
@@ -2032,7 +1972,7 @@ main {
 	-webkit-background-clip: text;
 	-webkit-text-fill-color: transparent;
 	background-clip: text;
-	transition: all 0.2s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+	transition: all 0.06s cubic-bezier(0.25, 0.46, 0.45, 0.94);
 }
 
 .theme-dark-glass .search-bar input {
@@ -2043,7 +1983,7 @@ main {
 	backdrop-filter: blur(30px) saturate(1.8) brightness(1.05);
 	-webkit-backdrop-filter: blur(30px) saturate(1.8) brightness(1.05);
 	box-shadow: 0 6px 20px rgba(0, 0, 0, 0.25), 0 2px 8px rgba(0, 0, 0, 0.15), 0 1px 0 rgba(255, 255, 255, 0.12) inset;
-	transition: all 0.15s cubic-bezier(0.4, 0, 0.2, 1);
+	transition: all 0.1s cubic-bezier(0.4, 0, 0.2, 1);
 	will-change: transform, box-shadow, background;
 }
 
@@ -2071,7 +2011,7 @@ main {
 	border: 1px solid rgba(255, 255, 255, 0.18);
 	border-radius: 16px;
 	box-shadow: 0 8px 32px rgba(0, 0, 0, 0.4);
-	animation: darkGlassModalFadeIn 0.18s ease-out;
+	animation: darkGlassModalFadeIn 0.054s ease-out;
 }
 
 .theme-dark-glass .modal-content:hover {
@@ -2093,7 +2033,7 @@ main {
 
 /* Smooth fade-out animation for dark glass modal */
 .theme-dark-glass .modal-backdrop.closing .modal-content {
-	animation: darkGlassModalFadeOut 0.12s ease-in forwards;
+	animation: darkGlassModalFadeOut 0.036s ease-in forwards;
 }
 
 @keyframes darkGlassModalFadeOut {
@@ -2131,7 +2071,7 @@ main {
 	margin: 0.8rem 0 !important;
 	backdrop-filter: blur(30px) !important;
 	-webkit-backdrop-filter: blur(30px) !important;
-	transition: all 0.2s cubic-bezier(0.25, 0.46, 0.45, 0.94) !important;
+	transition: all 0.06s cubic-bezier(0.25, 0.46, 0.45, 0.94) !important;
 }
 
 .theme-dark-glass .modal-sections > div:hover,
