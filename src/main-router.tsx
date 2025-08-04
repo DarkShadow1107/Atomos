@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
-import { NavbarRouter, PeriodicTable, ElementModal, OrganicCompounds } from "./components";
+import { NavbarRouter, PeriodicTable, ElementModal, OrganicCompounds, InorganicCompounds } from "./components";
 import elementsData, { periodicTableRows } from "./data/elements";
 import "./App.css";
 
@@ -128,52 +128,6 @@ function App() {
 		</>
 	);
 
-	// Placeholder components for other pages
-	const InorganicCompounds = () => (
-		<div className={getThemeClasses(resolvedTheme)}>
-			<div className="max-w-7xl mx-auto px-6 py-16 min-h-screen">
-				<div className="text-center mb-20">
-					<h1 className="text-6xl md:text-8xl font-black mb-8 bg-gradient-to-r from-red-400 via-orange-500 to-yellow-500 bg-clip-text text-transparent leading-tight">
-						Inorganic Compounds
-					</h1>
-					<div className="w-24 h-1 bg-gradient-to-r from-red-400 to-yellow-600 mx-auto rounded-full mb-8"></div>
-					<p className="text-xl md:text-3xl max-w-5xl mx-auto leading-relaxed opacity-90 font-light">
-						Discover the world of inorganic chemistry - from simple salts to complex coordination compounds.
-						<br className="hidden md:block" />
-						The building blocks of minerals, metals, and advanced materials.
-					</p>
-				</div>
-
-				{/* Coming Soon Card */}
-				<div className="max-w-4xl mx-auto">
-					<div className="rounded-3xl p-16 shadow-2xl backdrop-blur-sm bg-gradient-to-br from-white/10 to-white/5 border border-white/20">
-						<div className="text-center">
-							<div className="text-8xl mb-8">🧪</div>
-							<h2 className="text-4xl font-bold mb-6">Coming Soon</h2>
-							<p className="text-xl opacity-80 leading-relaxed mb-8">
-								We're working on bringing you comprehensive information about inorganic compounds, including
-								salts, acids, bases, metals, and coordination complexes. Stay tuned for detailed compound
-								profiles, properties, and applications.
-							</p>
-							<div className="flex flex-wrap justify-center gap-4">
-								{["Salts", "Acids & Bases", "Metals", "Coordination Compounds", "Minerals", "Semiconductors"].map(
-									(topic) => (
-										<span
-											key={topic}
-											className="px-4 py-2 rounded-full bg-gradient-to-r from-red-100 to-orange-100 dark:from-red-900/30 dark:to-orange-900/30 text-red-700 dark:text-red-300 font-medium"
-										>
-											{topic}
-										</span>
-									)
-								)}
-							</div>
-						</div>
-					</div>
-				</div>
-			</div>
-		</div>
-	);
-
 	const QuantumChemistry = () => (
 		<div className={getThemeClasses(resolvedTheme)}>
 			<div className="max-w-7xl mx-auto px-6 py-16 min-h-screen">
@@ -232,7 +186,7 @@ function App() {
 				<Routes>
 					<Route path="/" element={<HomePage />} />
 					<Route path="/organic-compounds" element={<OrganicCompounds theme={resolvedTheme} />} />
-					<Route path="/inorganic-compounds" element={<InorganicCompounds />} />
+					<Route path="/inorganic-compounds" element={<InorganicCompounds theme={resolvedTheme} />} />
 					<Route path="/quantum-chemistry" element={<QuantumChemistry />} />
 				</Routes>
 			</div>

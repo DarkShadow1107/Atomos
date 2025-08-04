@@ -1,6 +1,179 @@
 import React from "react";
 
-// Material 3 Expressive Design styles for cards and buttons
+// Material 3 Expressive Design styles for cards, buttons, and scrollbars
+const getScrollbarStyles = (theme: string) => {
+	switch (theme) {
+		case "dark":
+		case "night":
+		case "dracula":
+		case "forest":
+		case "dark-glass":
+			return `
+		::-webkit-scrollbar {
+		  width: 14px;
+		  background: #181c2a;
+		  z-index: 1100;
+		}
+		::-webkit-scrollbar-thumb {
+		  background: linear-gradient(135deg, #232946 0%, #6750a4 100%);
+		  border-radius: 12px;
+		  border: 3px solid #181c2a;
+		  box-shadow: 0 2px 8px #6750a4aa;
+		}
+		::-webkit-scrollbar-thumb:hover {
+		  background: linear-gradient(135deg, #6750a4 0%, #a084e8 100%);
+		}
+	  `;
+		case "light":
+			return `
+		::-webkit-scrollbar {
+		  width: 14px;
+		  background: #f3f4f6;
+		  z-index: 1100;
+		}
+		::-webkit-scrollbar-thumb {
+		  background: linear-gradient(135deg, #e0e7ff 0%, #a084e8 100%);
+		  border-radius: 12px;
+		  border: 3px solid #f3f4f6;
+		  box-shadow: 0 2px 8px #a084e8aa;
+		}
+		::-webkit-scrollbar-thumb:hover {
+		  background: linear-gradient(135deg, #a084e8 0%, #6750a4 100%);
+		}
+	  `;
+		case "cyberpunk":
+			return `
+		::-webkit-scrollbar {
+		  width: 14px;
+		  background: #0f0026;
+		  z-index: 1100;
+		}
+		::-webkit-scrollbar-thumb {
+		  background: linear-gradient(135deg, #ff00cc 0%, #00fff7 100%);
+		  border-radius: 12px;
+		  border: 3px solid #0f0026;
+		  box-shadow: 0 2px 8px #ff00ccaa;
+		}
+		::-webkit-scrollbar-thumb:hover {
+		  background: linear-gradient(135deg, #00fff7 0%, #ff00cc 100%);
+		}
+	  `;
+		case "win98":
+			return `
+		::-webkit-scrollbar {
+		  width: 14px;
+		  background: #c0c0c0;
+		  z-index: 1100;
+		}
+		::-webkit-scrollbar-thumb {
+		  background: #e0e0e0;
+		  border-radius: 0;
+		  border: 2px solid #808080;
+		}
+		::-webkit-scrollbar-thumb:hover {
+		  background: #bdbdbd;
+		}
+	  `;
+		case "pastel":
+			return `
+		::-webkit-scrollbar {
+		  width: 14px;
+		  background: #fce7f3;
+		  z-index: 1100;
+		}
+		::-webkit-scrollbar-thumb {
+		  background: linear-gradient(135deg, #a7f3d0 0%, #fbcfe8 100%);
+		  border-radius: 12px;
+		  border: 3px solid #fce7f3;
+		}
+		::-webkit-scrollbar-thumb:hover {
+		  background: linear-gradient(135deg, #fbcfe8 0%, #a7f3d0 100%);
+		}
+	  `;
+		case "peach":
+			return `
+		::-webkit-scrollbar {
+		  width: 14px;
+		  background: #fff7ed;
+		  z-index: 1100;
+		}
+		::-webkit-scrollbar-thumb {
+		  background: linear-gradient(135deg, #fdba74 0%, #fbbf24 100%);
+		  border-radius: 12px;
+		  border: 3px solid #fff7ed;
+		}
+		::-webkit-scrollbar-thumb:hover {
+		  background: linear-gradient(135deg, #fbbf24 0%, #fdba74 100%);
+		}
+	  `;
+		case "high-contrast":
+			return `
+		::-webkit-scrollbar {
+		  width: 16px;
+		  background: #000;
+		  z-index: 1100;
+		}
+		::-webkit-scrollbar-thumb {
+		  background: #FFD600;
+		  border-radius: 12px;
+		  border: 4px solid #000;
+		  box-shadow: 0 2px 8px #FFD600aa;
+		}
+		::-webkit-scrollbar-thumb:hover {
+		  background: #FFB300;
+		}
+	  `;
+		case "amoled":
+			return `
+		::-webkit-scrollbar {
+		  width: 14px;
+		  background: #000;
+		  z-index: 1100;
+		}
+		::-webkit-scrollbar-thumb {
+		  background: linear-gradient(135deg, #232946 0%, #181818 100%);
+		  border-radius: 12px;
+		  border: 3px solid #000;
+		}
+		::-webkit-scrollbar-thumb:hover {
+		  background: linear-gradient(135deg, #181818 0%, #232946 100%);
+		}
+	  `;
+		case "solarized":
+			return `
+		::-webkit-scrollbar {
+		  width: 14px;
+		  background: #fdf6e3;
+		  z-index: 1100;
+		}
+		::-webkit-scrollbar-thumb {
+		  background: linear-gradient(135deg, #b58900 0%, #268bd2 100%);
+		  border-radius: 12px;
+		  border: 3px solid #fdf6e3;
+		}
+		::-webkit-scrollbar-thumb:hover {
+		  background: linear-gradient(135deg, #268bd2 0%, #b58900 100%);
+		}
+	  `;
+		default:
+			return `
+		::-webkit-scrollbar {
+		  width: 14px;
+		  background: #f3f4f6;
+		  z-index: 1100;
+		}
+		::-webkit-scrollbar-thumb {
+		  background: linear-gradient(135deg, #e0e7ff 0%, #a084e8 100%);
+		  border-radius: 12px;
+		  border: 3px solid #f3f4f6;
+		}
+		::-webkit-scrollbar-thumb:hover {
+		  background: linear-gradient(135deg, #a084e8 0%, #6750a4 100%);
+		}
+	  `;
+	}
+};
+
 const styles = `
 .compound-card {
   position: relative;
@@ -133,7 +306,7 @@ const compounds: CompoundInfo[] = [
 			"Aspirin (acetylsalicylic acid) is a widely used medication for pain relief, fever reduction, and inflammation. It is also used for cardiovascular protection.",
 		molecularWeight: "180.16 g/mol",
 		meltingPoint: "135°C",
-		boilingPoint: "140°C (decomposes)",
+		boilingPoint: "140°C",
 		category: "Medicine",
 		uses: ["Pain relief", "Anti-inflammatory", "Fever reducer", "Blood thinner"],
 		structure: "Benzene ring with acetyl and carboxyl functional groups",
@@ -157,7 +330,7 @@ const compounds: CompoundInfo[] = [
 			"Morphine is a powerful opioid analgesic derived from opium. It is used medically for severe pain management in hospitals and palliative care.",
 		molecularWeight: "285.34 g/mol",
 		meltingPoint: "254°C",
-		boilingPoint: "Decomposes",
+		boilingPoint: "254°C",
 		category: "Medicine",
 		uses: ["Pain management", "Anesthesia", "Palliative care", "Surgery"],
 		structure: "Complex alkaloid with phenanthrene core",
@@ -168,8 +341,8 @@ const compounds: CompoundInfo[] = [
 		description:
 			"Penicillin G is a β-lactam antibiotic that was the first antibiotic to be discovered. It revolutionized medicine by treating bacterial infections.",
 		molecularWeight: "334.39 g/mol",
-		meltingPoint: "214°C (decomposes)",
-		boilingPoint: "Decomposes",
+		meltingPoint: "214°C",
+		boilingPoint: "214°C",
 		category: "Medicine",
 		uses: ["Antibiotic", "Bacterial infections", "Strep throat", "Pneumonia"],
 		structure: "β-lactam ring fused to thiazolidine ring",
@@ -283,7 +456,7 @@ const compounds: CompoundInfo[] = [
 			"Glucose is a simple sugar (monosaccharide) and is the most abundant monosaccharide. It is essential for cellular metabolism and energy production.",
 		molecularWeight: "180.16 g/mol",
 		meltingPoint: "146°C",
-		boilingPoint: "Decomposes",
+		boilingPoint: "146°C",
 		category: "Biochemistry",
 		uses: ["Energy metabolism", "Food industry", "Medical treatments", "Fermentation"],
 		structure: "Six-carbon aldohexose with multiple hydroxyl groups",
@@ -307,7 +480,7 @@ const compounds: CompoundInfo[] = [
 			"Cholesterol is a sterol lipid essential for cell membrane structure and hormone synthesis. It plays crucial roles in biological processes.",
 		molecularWeight: "386.65 g/mol",
 		meltingPoint: "148°C",
-		boilingPoint: "Decomposes",
+		boilingPoint: "148°C",
 		category: "Biochemistry",
 		uses: ["Cell membranes", "Hormone synthesis", "Bile acids", "Vitamin D production"],
 		structure: "Steroid backbone with hydroxyl group",
@@ -318,8 +491,8 @@ const compounds: CompoundInfo[] = [
 		description:
 			"Vitamin C (ascorbic acid) is an essential nutrient involved in collagen synthesis, immune function, and antioxidant protection.",
 		molecularWeight: "176.12 g/mol",
-		meltingPoint: "190°C (decomposes)",
-		boilingPoint: "Decomposes",
+		meltingPoint: "190°C",
+		boilingPoint: "190°C",
 		category: "Biochemistry",
 		uses: ["Antioxidant", "Collagen synthesis", "Immune support", "Food additive"],
 		structure: "Lactone with enediol functional group",
@@ -403,6 +576,8 @@ const OrganicCompounds: React.FC<OrganicCompoundsProps> = ({ theme }) => {
 		<div className={getThemeClasses(theme) + " pt-24"}>
 			{/* Add custom styles */}
 			<style>{styles}</style>
+			{/* Custom Scrollbar Styles for Theme */}
+			<style>{getScrollbarStyles(theme)}</style>
 
 			{/* Hero Section */}
 			<section className="relative overflow-hidden pt-24" style={{ marginTop: "75px" }}>
@@ -450,7 +625,14 @@ const OrganicCompounds: React.FC<OrganicCompoundsProps> = ({ theme }) => {
 				].map((section) => (
 					<section key={section.title} className="mb-20">
 						{/* Section Header */}
-						<div className="text-center mb-12">
+						<div
+							className="text-center mb-12"
+							style={
+								["Energy & Fuels", "Industrial Solvents", "Biochemistry & Nutrition"].includes(section.title)
+									? { marginTop: "3%" }
+									: {}
+							}
+						>
 							<div className="inline-flex items-center justify-center mb-6">
 								<div
 									className={`w-16 h-16 rounded-2xl bg-gradient-to-r ${section.color} flex items-center justify-center shadow-lg`}
@@ -672,7 +854,13 @@ const OrganicCompounds: React.FC<OrganicCompoundsProps> = ({ theme }) => {
 
 										{/* Properties Section at the bottom */}
 										<div className="mt-auto pt-8 flex flex-col gap-4">
-											<div className="bg-gray-100/90 dark:bg-gray-900/70 rounded-3xl p-7 border border-black/5 dark:border-white/5 shadow-md flex flex-col gap-2 animate-fade-in">
+											<div
+												className="bg-gray-100/90 dark:bg-gray-900/70 rounded-[2.5rem] p-7 border border-black/5 dark:border-white/5 shadow-md flex flex-col gap-2 animate-fade-in"
+												style={{
+													padding: "7.35%",
+													margin: "2.5% 0",
+												}}
+											>
 												<div className="grid grid-cols-3 gap-4 text-center">
 													<div>
 														<span className="text-sm text-gray-500 dark:text-gray-400 font-medium block mb-1">
@@ -695,7 +883,10 @@ const OrganicCompounds: React.FC<OrganicCompoundsProps> = ({ theme }) => {
 															Boiling
 														</span>
 														<span className="text-xl font-bold text-gray-900 dark:text-white">
-															{compound.boilingPoint}
+															{compound.boilingPoint.split(" ")[0] ===
+															compound.meltingPoint.split(" ")[0]
+																? "Decomposes"
+																: compound.boilingPoint.split(" ")[0]}
 														</span>
 													</div>
 												</div>
