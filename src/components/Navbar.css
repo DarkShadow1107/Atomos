@@ -1,8 +1,9 @@
 .navbar {
 	width: 100vw;
-	background: none;
+	background: rgba(255, 255, 255, 0.02);
+	backdrop-filter: blur(20px);
 	position: absolute;
-	top: 4px;
+	top: 0;
 	left: 0;
 	z-index: 100;
 	display: flex;
@@ -11,12 +12,12 @@
 	justify-content: flex-start;
 	margin-top: 0;
 	margin-bottom: 0;
-	box-shadow: none;
-	backdrop-filter: none;
+	box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+	border-bottom: 1px solid rgba(255, 255, 255, 0.05);
 	padding-left: 32px;
 	padding-right: 32px;
-	height: 64px;
-	min-height: 64px;
+	height: 80px;
+	min-height: 80px;
 	/* Add bottom padding for space below navbar */
 	padding-bottom: 36px;
 }
@@ -36,6 +37,13 @@
 	gap: 14px;
 	text-shadow: 0 3px 18px #2ecdc055, 0 2px 4px #23252633, 0 0 2px #fff8;
 	position: relative;
+	text-decoration: none;
+	transition: all 0.3s ease;
+}
+
+.app-title:hover {
+	transform: scale(1.02);
+	text-shadow: 0 3px 24px #2ecdc077, 0 2px 6px #23252644, 0 0 4px #fff9;
 }
 .atom-logo {
 	display: inline-block;
@@ -176,4 +184,107 @@ main {
 
 .fullscreen-button svg {
 	pointer-events: none;
+}
+
+/* Navigation link styles for router-based navigation */
+.nav-link {
+	display: inline-block;
+	padding: 0.75rem 1.5rem;
+	text-decoration: none;
+	color: inherit;
+	border-radius: 0.75rem;
+	transition: all 0.3s ease;
+	position: relative;
+	font-weight: 500;
+	font-size: 1rem;
+	backdrop-filter: blur(10px);
+	border: 1px solid transparent;
+}
+
+.nav-link:hover {
+	background: rgba(255, 255, 255, 0.08);
+	transform: translateY(-1px);
+	box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+}
+
+.nav-link-active {
+	background: rgba(56, 189, 248, 0.15);
+	color: #38bdf8;
+	border: 1px solid rgba(56, 189, 248, 0.3);
+	box-shadow: 0 0 20px rgba(56, 189, 248, 0.2), 0 4px 12px rgba(56, 189, 248, 0.1), inset 0 1px 0 rgba(255, 255, 255, 0.1);
+	font-weight: 600;
+	transform: translateY(-1px);
+}
+
+/* Theme-specific active link styles */
+.theme-dark-glass .nav-link-active {
+	background: rgba(56, 189, 248, 0.15);
+	backdrop-filter: blur(10px);
+	border: 1px solid rgba(56, 189, 248, 0.3);
+}
+
+.theme-win98 .nav-link-active {
+	background: #fbbf24;
+	color: #92400e;
+	box-shadow: inset -1px -1px 0 #808080, inset 1px 1px 0 #fff;
+}
+
+.theme-cyberpunk .nav-link-active {
+	background: rgba(244, 114, 182, 0.2);
+	color: #f472b6;
+	box-shadow: 0 0 10px rgba(244, 114, 182, 0.4), 0 0 20px rgba(250, 204, 21, 0.3);
+}
+
+.theme-dracula .nav-link-active {
+	background: rgba(189, 147, 249, 0.2);
+	color: #bd93f9;
+	box-shadow: 0 0 10px rgba(189, 147, 249, 0.4), 0 0 20px rgba(189, 147, 249, 0.2);
+}
+
+.theme-forest .nav-link-active {
+	background: rgba(52, 211, 153, 0.2);
+	color: #34d399;
+	box-shadow: 0 0 10px rgba(52, 211, 153, 0.4), 0 0 20px rgba(52, 211, 153, 0.2);
+}
+
+.theme-pastel .nav-link-active {
+	background: rgba(249, 168, 212, 0.3);
+	color: #ec4899;
+	box-shadow: 0 0 10px rgba(249, 168, 212, 0.4), 0 0 20px rgba(165, 180, 252, 0.3);
+}
+
+.theme-peach .nav-link-active {
+	background: rgba(253, 186, 116, 0.3);
+	color: #ea580c;
+	box-shadow: 0 0 10px rgba(253, 186, 116, 0.4), 0 0 20px rgba(252, 165, 165, 0.3);
+}
+
+.theme-high-contrast .nav-link-active {
+	background: #facc15;
+	color: #000;
+	box-shadow: 0 0 10px rgba(250, 204, 21, 0.6), 0 0 20px rgba(250, 204, 21, 0.4);
+}
+
+.theme-amoled .nav-link-active {
+	background: rgba(255, 255, 255, 0.1);
+	color: #fff;
+	box-shadow: 0 0 10px rgba(255, 255, 255, 0.3), 0 0 20px rgba(56, 189, 248, 0.2);
+}
+
+.theme-night .nav-link-active {
+	background: rgba(56, 189, 248, 0.2);
+	color: #38bdf8;
+	box-shadow: 0 0 10px rgba(56, 189, 248, 0.4), 0 0 20px rgba(56, 189, 248, 0.2);
+}
+
+.theme-solarized .nav-link-active {
+	background: rgba(181, 137, 0, 0.2);
+	color: #b58900;
+	box-shadow: 0 0 10px rgba(181, 137, 0, 0.4), 0 0 20px rgba(38, 139, 210, 0.3);
+}
+
+.theme-light .nav-link-active {
+	background: rgba(14, 165, 233, 0.1);
+	color: #0ea5e9;
+	box-shadow: 0 0 10px rgba(14, 165, 233, 0.3), 0 0 20px rgba(14, 165, 233, 0.2);
 }

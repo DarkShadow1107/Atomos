@@ -4,4 +4,6 @@ export { default as ElementCard } from "./ElementCard.tsx";
 export { default as ElementModal } from "./ElementModal.tsx";
 export { default as SearchBar } from "./SearchBar.tsx";
 export { default as Navbar } from "./Navbar.tsx";
+export { default as NavbarRouter } from "./NavbarRouter.tsx";
 export { default as AtomLogo } from "./AtomLogo.tsx";
+export { default as OrganicCompounds } from "./OrganicCompounds.tsx";
