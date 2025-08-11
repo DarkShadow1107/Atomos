@@ -1,6 +1,7 @@
 import { useState, useEffect } from "react";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import { NavbarRouter, PeriodicTable, ElementModal, OrganicCompounds, InorganicCompounds } from "./components";
+import QuantumChemistry from "./components/QuantumChemistry";
 import elementsData, { periodicTableRows } from "./data/elements";
 import "./App.css";
 
@@ -26,41 +27,6 @@ const getSystemTheme = () => {
 		return "dark";
 	}
 	return "light";
-};
-
-const getThemeClasses = (theme: string) => {
-	const baseClasses = "min-h-screen transition-all duration-300 overflow-auto";
-
-	switch (theme) {
-		case "dark":
-			return `${baseClasses} bg-gradient-to-br from-gray-900 via-gray-800 to-gray-700 text-white`;
-		case "light":
-			return `${baseClasses} bg-gradient-to-br from-white via-gray-50 to-gray-100 text-gray-900`;
-		case "dark-glass":
-			return `${baseClasses} bg-gradient-to-br from-gray-900/90 via-gray-800/80 to-gray-700/90 backdrop-blur-md text-white`;
-		case "win98":
-			return `${baseClasses} bg-[#c0c0c0] text-black`;
-		case "cyberpunk":
-			return `${baseClasses} bg-gradient-to-br from-purple-900 via-pink-800 to-cyan-900 text-cyan-100`;
-		case "dracula":
-			return `${baseClasses} bg-gradient-to-br from-[#282a36] via-[#44475a] to-[#6272a4] text-[#f8f8f2]`;
-		case "forest":
-			return `${baseClasses} bg-gradient-to-br from-green-900 via-green-700 to-green-500 text-white`;
-		case "pastel":
-			return `${baseClasses} bg-gradient-to-br from-pink-100 via-blue-100 to-green-100 text-gray-800`;
-		case "peach":
-			return `${baseClasses} bg-gradient-to-br from-orange-100 via-pink-200 to-yellow-100 text-orange-900`;
-		case "high-contrast":
-			return `${baseClasses} bg-black text-yellow-300`;
-		case "amoled":
-			return `${baseClasses} bg-black text-white`;
-		case "night":
-			return `${baseClasses} bg-gradient-to-br from-gray-900 via-gray-800 to-black text-white`;
-		case "solarized":
-			return `${baseClasses} bg-gradient-to-br from-[#fdf6e3] via-[#eee8d5] to-[#93a1a1] text-[#657b83]`;
-		default:
-			return `${baseClasses} bg-gradient-to-br from-white via-gray-50 to-gray-100 text-gray-900`;
-	}
 };
 
 // Main App component with routing
@@ -128,56 +94,6 @@ function App() {
 		</>
 	);
 
-	const QuantumChemistry = () => (
-		<div className={getThemeClasses(resolvedTheme)}>
-			<div className="max-w-7xl mx-auto px-6 py-16 min-h-screen">
-				<div className="text-center mb-20">
-					<h1 className="text-6xl md:text-8xl font-black mb-8 bg-gradient-to-r from-purple-400 via-blue-500 to-cyan-500 bg-clip-text text-transparent leading-tight">
-						Quantum Chemistry
-					</h1>
-					<div className="w-24 h-1 bg-gradient-to-r from-purple-400 to-cyan-600 mx-auto rounded-full mb-8"></div>
-					<p className="text-xl md:text-3xl max-w-5xl mx-auto leading-relaxed opacity-90 font-light">
-						Explore the quantum mechanical foundations of chemical bonding and molecular behavior.
-						<br className="hidden md:block" />
-						Where physics meets chemistry at the atomic and molecular level.
-					</p>
-				</div>
-
-				{/* Coming Soon Card */}
-				<div className="max-w-4xl mx-auto">
-					<div className="rounded-3xl p-16 shadow-2xl backdrop-blur-sm bg-gradient-to-br from-white/10 to-white/5 border border-white/20">
-						<div className="text-center">
-							<div className="text-8xl mb-8">⚛️</div>
-							<h2 className="text-4xl font-bold mb-6">Coming Soon</h2>
-							<p className="text-xl opacity-80 leading-relaxed mb-8">
-								We're developing comprehensive content on quantum chemistry, including molecular orbitals,
-								electronic structure calculations, spectroscopy, and computational chemistry methods. Experience
-								the fascinating intersection of quantum physics and chemistry.
-							</p>
-							<div className="flex flex-wrap justify-center gap-4">
-								{[
-									"Molecular Orbitals",
-									"DFT Calculations",
-									"Spectroscopy",
-									"Wave Functions",
-									"Quantum Mechanics",
-									"Computational Methods",
-								].map((topic) => (
-									<span
-										key={topic}
-										className="px-4 py-2 rounded-full bg-gradient-to-r from-purple-100 to-blue-100 dark:from-purple-900/30 dark:to-blue-900/30 text-purple-700 dark:text-purple-300 font-medium"
-									>
-										{topic}
-									</span>
-								))}
-							</div>
-						</div>
-					</div>
-				</div>
-			</div>
-		</div>
-	);
-
 	return (
 		<Router>
 			<div className={`app-container theme-${resolvedTheme}`}>
@@ -187,7 +103,7 @@ function App() {
 					<Route path="/" element={<HomePage />} />
 					<Route path="/organic-compounds" element={<OrganicCompounds theme={resolvedTheme} />} />
 					<Route path="/inorganic-compounds" element={<InorganicCompounds theme={resolvedTheme} />} />
-					<Route path="/quantum-chemistry" element={<QuantumChemistry />} />
+					<Route path="/quantum-chemistry" element={<QuantumChemistry theme={resolvedTheme} />} />
 				</Routes>
 			</div>
 		</Router>

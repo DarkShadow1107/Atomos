@@ -280,6 +280,28 @@ const styles = `
 	min-height: 420px;
   }
 }
+
+/* Dialog */
+.qc-dialog-overlay { position: fixed; inset: 0; background: rgba(0,0,0,0.4); backdrop-filter: blur(4px); z-index: 50; display:flex; align-items:center; justify-content:center; padding: 1rem; animation: fadeIn 200ms ease-out; }
+.qc-dialog { width: min(720px, 92vw); border-radius: 1.75rem; overflow: hidden; box-shadow: 0 24px 64px rgba(0,0,0,0.25); }
+.qc-dialog-header { padding: 1.25rem 1.5rem; border-bottom: 1px solid rgba(0,0,0,0.06); }
+.qc-dialog-body { padding: 1.25rem 1.5rem; }
+.qc-dialog-actions { display:flex; justify-content:flex-end; gap:0.5rem; padding: 1rem 1.5rem; border-top: 1px solid rgba(0,0,0,0.06); }
+
+@keyframes fadeIn { from { opacity: 0; transform: translateY(4px);} to { opacity: 1; transform: translateY(0);} }
+
+/* Modern modal polish + chips */
+.qc-dialog { transform: translateY(4px); }
+.qc-dialog-title { display:flex; align-items:center; gap:.75rem; }
+.qc-divider { height:1px; background: rgba(0,0,0,0.06); margin:.5rem -1.5rem 1rem; }
+.dark .qc-divider { background: rgba(255,255,255,0.08); }
+.m3-chip { appearance:none; border:none; cursor:pointer; padding:.6rem 1rem; border-radius:9999px; font-weight:600; font-size:.95rem; background: rgba(103,80,164,0.08); color:#4b5563; transition: all .18s ease; box-shadow: 0 1px 2px rgba(0,0,0,0.06) inset; }
+.m3-chip:hover { transform: translateY(-1px); box-shadow: 0 2px 6px rgba(0,0,0,0.12), 0 1px 2px rgba(0,0,0,0.06) inset; }
+.m3-chip.active { color: white; background: linear-gradient(90deg, #6750a4 0%, #a084e8 100%); box-shadow: 0 6px 16px rgba(103,80,164,0.28); }
+.dark .m3-chip { background: rgba(255,255,255,0.08); color:#e5e7eb; }
+.m3-badge { display:inline-flex; align-items:center; gap:.5rem; padding:.4rem .75rem; border-radius:9999px; font-size:.85rem; font-weight:600; background: rgba(103,80,164,0.12); color:#4b5563; }
+.dark .m3-badge { background: rgba(255,255,255,0.08); color:#e5e7eb; }
+.qc-dialog-actions { position: sticky; bottom: 0; background: transparent; }
 `;
 
 const getThemeClasses = (theme: string) => {
@@ -637,29 +659,121 @@ interface InorganicCompoundsProps {
 }
 
 const InorganicCompounds: React.FC<InorganicCompoundsProps> = ({ theme }) => {
+	const [filterOpen, setFilterOpen] = React.useState(false);
+	const [enabledSections, setEnabledSections] = React.useState<Record<string, boolean>>({
+		Salts: true,
+		Acids: true,
+		Bases: true,
+	});
+	// Details modal state
+	const [infoOpen, setInfoOpen] = React.useState(false);
+	const [selectedCompound, setSelectedCompound] = React.useState<CompoundInfo | null>(null);
+
+	// Added: category icons + selection count for refined Filters UI
+	const categoryIcons: Record<string, string> = { Salts: "🧂", Acids: "🥤", Bases: "🧴" };
+	const activeCount = Object.values(enabledSections).filter(Boolean).length;
+
 	React.useEffect(() => {
-		const getTheme = () => document.documentElement.getAttribute("data-theme") || "light";
-		let styleEl = document.getElementById("custom-scrollbar-inorganic") as HTMLStyleElement | null;
-		if (!styleEl) {
-			styleEl = document.createElement("style");
-			styleEl.id = "custom-scrollbar-inorganic";
-			document.head.appendChild(styleEl);
-		}
-		const setStyles = () => {
-			styleEl!.innerHTML = getScrollbarStyles(getTheme());
-		};
-		setStyles();
-		const observer = new MutationObserver(setStyles);
-		observer.observe(document.documentElement, { attributes: true, attributeFilter: ["data-theme"] });
-		return () => {
-			observer.disconnect();
-			styleEl && styleEl.remove();
-		};
+		const handler = () => setFilterOpen(true);
+		window.addEventListener("open-page-filters", handler);
+		return () => window.removeEventListener("open-page-filters", handler);
 	}, []);
+
+	const toggleSection = (key: string) => setEnabledSections((s) => ({ ...s, [key]: !s[key] }));
+	const setAll = (val: boolean) => setEnabledSections({ Salts: val, Acids: val, Bases: val });
+
+	const getModalStyles = (theme: string): React.CSSProperties => {
+		switch (theme) {
+			case "dark":
+			case "night":
+			case "dracula":
+			case "forest":
+			case "dark-glass":
+				return {
+					background: "linear-gradient(180deg, rgba(24,28,42,0.96) 0%, rgba(24,28,42,0.88) 100%)",
+					border: "1px solid rgba(255,255,255,0.08)",
+				};
+			case "cyberpunk":
+				return {
+					background: "linear-gradient(180deg, rgba(15,0,38,0.96) 0%, rgba(15,0,38,0.88) 100%)",
+					border: "1px solid rgba(255,0,204,0.35)",
+					boxShadow: "0 24px 64px rgba(255,0,204,0.25)",
+				};
+			case "win98":
+				return { background: "#e0e0e0", border: "2px solid #808080", boxShadow: "3px 3px 0 #000" };
+			case "pastel":
+				return {
+					background: "linear-gradient(180deg, rgba(252,231,243,0.95) 0%, rgba(224,242,254,0.9) 100%)",
+					border: "1px solid rgba(236,72,153,0.25)",
+				};
+			case "peach":
+				return {
+					background: "linear-gradient(180deg, rgba(255,247,237,0.95) 0%, rgba(254,243,199,0.9) 100%)",
+					border: "1px solid rgba(251,146,60,0.25)",
+				};
+			case "high-contrast":
+				return { background: "#000", border: "3px solid #FFD600" };
+			case "amoled":
+				return {
+					background: "linear-gradient(180deg, rgba(0,0,0,0.96) 0%, rgba(10,10,10,0.9) 100%)",
+					border: "1px solid #222",
+				};
+			case "solarized":
+				return {
+					background: "linear-gradient(180deg, rgba(253,246,227,0.95) 0%, rgba(238,232,213,0.9) 100%)",
+					border: "1px solid rgba(181,137,0,0.25)",
+				};
+			default:
+				return {
+					background: "linear-gradient(180deg, rgba(255,255,255,0.95) 0%, rgba(255,255,255,0.8) 100%)",
+					border: "1px solid rgba(0,0,0,0.06)",
+				};
+		}
+	};
+
+	// Sections array
+	const sections = [
+		{
+			title: "Salts",
+			subtitle: "Ionic compounds essential for life and industry",
+			icon: "🧂",
+			color: "from-blue-400 to-blue-700",
+			compounds: compounds.filter((c) => c.category === "Salts"),
+		},
+		{
+			title: "Acids",
+			subtitle: "Substances with a sour taste and low pH",
+			icon: "🥤",
+			color: "from-pink-500 to-red-600",
+			compounds: compounds.filter((c) => c.category === "Acids"),
+		},
+		{
+			title: "Bases",
+			subtitle: "Compounds with a bitter taste and slippery feel",
+			icon: "🧴",
+			color: "from-green-400 to-green-700",
+			compounds: compounds.filter((c) => c.category === "Bases"),
+		},
+	] as const;
+	const displayed = sections.filter((s) => enabledSections[s.title]);
+
 	return (
 		<div className={getThemeClasses(theme) + " pt-24"}>
 			{/* Add custom styles */}
-			<style>{styles}</style>
+			<style>
+				{styles +
+					`
+/* --- Refined dialog sizing & layout tweaks --- */
+.qc-dialog { width: min(860px, 94vw); }
+/* Chip grid for a more organized filters layout */
+.chip-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(160px, 1fr)); gap: .6rem .6rem; }
+/* Visual indicator inside chips */
+.chip-indicator { width: 1.1rem; height: 1.1rem; border-radius: 9999px; border: 2px solid rgba(103,80,164,0.45); display:inline-flex; align-items:center; justify-content:center; font-weight:800; line-height:1; font-size:.8rem; color:#fff; background: transparent; }
+.m3-chip.active .chip-indicator { background: #7c5fd3; border-color: #7c5fd3; box-shadow: 0 0 0 3px rgba(124,95,211,0.25); }
+/* Larger badge option for Learn More */
+.m3-badge-lg { padding:.5rem 1rem; font-size:1rem; }
+`}
+			</style>
 			{/* Custom Scrollbar Styles for Theme */}
 			<style>{getScrollbarStyles(theme)}</style>
 
@@ -675,30 +789,7 @@ const InorganicCompounds: React.FC<InorganicCompoundsProps> = ({ theme }) => {
 			</section>
 			{/* Main Content */}
 			<div className="max-w-6xl mx-auto px-[5vw] pb-24">
-				{/* Compounds Grid by Categories */}
-				{[
-					{
-						title: "Salts",
-						subtitle: "Ionic compounds essential for life and industry",
-						icon: "🧂",
-						color: "from-blue-400 to-blue-700",
-						compounds: compounds.filter((c) => c.category === "Salts"),
-					},
-					{
-						title: "Acids",
-						subtitle: "Substances with a sour taste and low pH",
-						icon: "🥤",
-						color: "from-pink-500 to-red-600",
-						compounds: compounds.filter((c) => c.category === "Acids"),
-					},
-					{
-						title: "Bases",
-						subtitle: "Compounds with a bitter taste and slippery feel",
-						icon: "🧴",
-						color: "from-green-400 to-green-700",
-						compounds: compounds.filter((c) => c.category === "Bases"),
-					},
-				].map((section) => (
+				{displayed.map((section) => (
 					<section key={section.title} className="mb-20">
 						{/* Section Header */}
 						<div className="text-center mb-12" style={section.title === "Salts" ? undefined : { marginTop: "3%" }}>
@@ -850,7 +941,7 @@ const InorganicCompounds: React.FC<InorganicCompoundsProps> = ({ theme }) => {
 															boxShadow: sectionTheme.shadow,
 														}}
 													>
-														<span className="text-white text-5xl drop-shadow-[0_2px_12px_rgba(80,80,255,0.45)]">
+														<span className="text-white text-5xl drop-shadow-[0_2px_12px_rgba(80,80,255,0.45]">
 															{section.icon}
 														</span>
 													</div>
@@ -922,6 +1013,10 @@ const InorganicCompounds: React.FC<InorganicCompoundsProps> = ({ theme }) => {
 												className="m3-button"
 												tabIndex={0}
 												aria-label={`Learn more about ${compound.name}`}
+												onClick={() => {
+													setSelectedCompound(compound);
+													setInfoOpen(true);
+												}}
 											>
 												Learn More
 											</button>
@@ -933,6 +1028,148 @@ const InorganicCompounds: React.FC<InorganicCompoundsProps> = ({ theme }) => {
 					</section>
 				))}
 			</div>
+
+			{/* Filters Modal */}
+			{filterOpen && (
+				<div className="qc-dialog-overlay" onClick={() => setFilterOpen(false)} aria-hidden={false}>
+					<div
+						className="qc-dialog"
+						style={getModalStyles(theme)}
+						onClick={(e) => e.stopPropagation()}
+						role="dialog"
+						aria-modal="true"
+						aria-label="Filters"
+					>
+						<div className="qc-dialog-header">
+							<div className="qc-dialog-title">
+								<span className="m3-badge">Filters</span>
+								<span className="text-sm text-gray-500 dark:text-gray-400">Organize visible categories</span>
+							</div>
+							<button className="m3-button" onClick={() => setFilterOpen(false)} aria-label="Close Filters">
+								Close
+							</button>
+						</div>
+						<div className="qc-divider" />
+						<div className="qc-dialog-body">
+							<p className="text-sm text-gray-600 dark:text-gray-300 mb-3">
+								Choose which sections to display. Showing <span className="font-semibold">{activeCount}</span> of
+								3.
+							</p>
+							<div className="chip-grid">
+								{sections.map((s) => {
+									const active = !!enabledSections[s.title];
+									return (
+										<button
+											key={s.title}
+											type="button"
+											className={`m3-chip ${active ? "active" : ""}`}
+											onClick={() => toggleSection(s.title)}
+											aria-pressed={active}
+										>
+											<span className="chip-indicator" aria-hidden="true">
+												{active ? "✓" : ""}
+											</span>
+											<span>
+												{categoryIcons[s.title] || ""} {s.title}
+											</span>
+										</button>
+									);
+								})}
+							</div>
+						</div>
+						<div className="qc-dialog-actions">
+							<div className="flex items-center justify-between w-full">
+								<div className="flex items-center gap-2">
+									<button className="m3-button" onClick={() => setAll(false)}>
+										Clear All
+									</button>
+									<button className="m3-button" onClick={() => setAll(true)}>
+										Select All
+									</button>
+								</div>
+								<div className="flex items-center gap-3">
+									<span className="text-sm text-gray-500 dark:text-gray-400">{activeCount} selected</span>
+									<button className="m3-button" onClick={() => setFilterOpen(false)}>
+										Apply
+									</button>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			)}
+
+			{/* Details Modal (Learn More) */}
+			{infoOpen && selectedCompound && (
+				<div className="qc-dialog-overlay" onClick={() => setInfoOpen(false)} aria-hidden={false}>
+					<div
+						className="qc-dialog"
+						style={getModalStyles(theme)}
+						onClick={(e) => e.stopPropagation()}
+						role="dialog"
+						aria-modal="true"
+						aria-label={`${selectedCompound.name} details`}
+					>
+						<div className="qc-dialog-header">
+							<div className="qc-dialog-title">
+								<h4 className="text-3xl md:text-4xl font-extrabold text-gray-900 dark:text-white">
+									{selectedCompound.name}
+								</h4>
+								<span className="m3-badge m3-badge-lg">{selectedCompound.formula}</span>
+							</div>
+							<button className="m3-button" onClick={() => setInfoOpen(false)} aria-label="Close details">
+								Close
+							</button>
+						</div>
+						<div className="qc-divider" />
+						<div className="qc-dialog-body space-y-6 text-lg md:text-xl leading-relaxed">
+							<p className="text-gray-700 dark:text-gray-300">{selectedCompound.description}</p>
+							<h5 className="text-sm font-semibold tracking-wider uppercase text-gray-500 dark:text-gray-400">
+								Key properties
+							</h5>
+							<div className="grid grid-cols-3 gap-4 text-center">
+								<div>
+									<span className="text-sm text-gray-500 dark:text-gray-400 block">Weight</span>
+									<span className="text-xl font-bold text-gray-900 dark:text-white">
+										{selectedCompound.molecularWeight}
+									</span>
+								</div>
+								<div>
+									<span className="text-sm text-gray-500 dark:text-gray-400 block">Melting</span>
+									<span className="text-xl font-bold text-gray-900 dark:text-white">
+										{selectedCompound.meltingPoint}
+									</span>
+								</div>
+								<div>
+									<span className="text-sm text-gray-500 dark:text-gray-400 block">Boiling</span>
+									<span className="text-xl font-bold text-gray-900 dark:text-white">
+										{selectedCompound.boilingPoint}
+									</span>
+								</div>
+							</div>
+							<h5 className="text-sm font-semibold tracking-wider uppercase text-gray-500 dark:text-gray-400">
+								Uses
+							</h5>
+							<div className="flex flex-wrap gap-2">
+								{selectedCompound.uses.map((u) => (
+									<span key={u} className="m3-badge">
+										{u}
+									</span>
+								))}
+							</div>
+							<h5 className="text-sm font-semibold tracking-wider uppercase text-gray-500 dark:text-gray-400">
+								Structure
+							</h5>
+							<p className="text-gray-800 dark:text-gray-200">{selectedCompound.structure}</p>
+						</div>
+						<div className="qc-dialog-actions">
+							<button className="m3-button" onClick={() => setInfoOpen(false)}>
+								Close
+							</button>
+						</div>
+					</div>
+				</div>
+			)}
 		</div>
 	);
 };

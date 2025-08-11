@@ -40,6 +40,12 @@ const Navbar: React.FC<NavbarProps> = ({ theme, setTheme, themeOptions }) => {
 	}, []);
 
 	const isActivePage = (path: string) => location.pathname === path;
+	const isFilterablePage = ["/organic-compounds", "/inorganic-compounds", "/quantum-chemistry"].includes(location.pathname);
+
+	const openPageFilters = () => {
+		// Notify the current page to open its filters drawer
+		window.dispatchEvent(new CustomEvent("open-page-filters"));
+	};
 
 	return (
 		<nav className="navbar">
@@ -89,6 +95,13 @@ const Navbar: React.FC<NavbarProps> = ({ theme, setTheme, themeOptions }) => {
 						Quantum Chemistry
 					</Link>
 				</li>
+				{isFilterablePage && (
+					<li>
+						<button className="nav-link" onClick={openPageFilters} aria-label="Open Filters" title="Filters">
+							Filters
+						</button>
+					</li>
+				)}
 				<li>
 					<div
 						className="theme-toggle custom-dropdown"

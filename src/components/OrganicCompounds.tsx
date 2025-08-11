@@ -282,6 +282,46 @@ const styles = `
 	min-height: 420px;
   }
 }
+
+/* Dialog */
+.qc-dialog-overlay { position: fixed; inset: 0; background: rgba(0,0,0,0.4); backdrop-filter: blur(4px); z-index: 50; display:flex; align-items:center; justify-content:center; padding: 1rem; animation: fadeIn 200ms ease-out; }
+.qc-dialog { width: min(720px, 92vw); border-radius: 1.75rem; overflow: hidden; box-shadow: 0 24px 64px rgba(0,0,0,0.25); }
+.qc-dialog-header { padding: 1.25rem 1.5rem; border-bottom: 1px solid rgba(0,0,0,0.06); }
+.qc-dialog-body { padding: 1.25rem 1.5rem; }
+.qc-dialog-actions { display:flex; justify-content:flex-end; gap:0.5rem; padding: 1rem 1.5rem; border-top: 1px solid rgba(0,0,0,0.06); }
+
+/* Utilities */
+@keyframes fadeIn { from { opacity: 0; transform: translateY(4px);} to { opacity: 1; transform: translateY(0);} }
+
+/* Elevation + subtle motion */
+.qc-dialog { transform: translateY(4px); animation: fadeIn 200ms ease-out; }
+.qc-dialog-header { display:flex; align-items:center; justify-content:space-between; gap: .75rem; position: sticky; top: 0; background: transparent; backdrop-filter: none; }
+.qc-dialog-title { display:flex; align-items:center; gap:.75rem; }
+.qc-divider { height:1px; background: rgba(0,0,0,0.06); margin: .5rem -1.5rem 1rem; }
+.dark .qc-divider { background: rgba(255,255,255,0.08); }
+
+/* Chips */
+.m3-chip { appearance:none; border:none; cursor:pointer; padding:.6rem 1rem; border-radius:9999px; font-weight:600; font-size:.95rem; background: rgba(103,80,164,0.08); color:#4b5563; transition: all .18s ease; box-shadow: 0 1px 2px rgba(0,0,0,0.06) inset; }
+.m3-chip:hover { transform: translateY(-1px); box-shadow: 0 2px 6px rgba(0,0,0,0.12), 0 1px 2px rgba(0,0,0,0.06) inset; }
+.m3-chip.active { color: white; background: linear-gradient(90deg, #6750a4 0%, #a084e8 100%); box-shadow: 0 6px 16px rgba(103,80,164,0.28); }
+.dark .m3-chip { background: rgba(255,255,255,0.08); color:#e5e7eb; }
+
+/* Inline badges for details */
+.m3-badge { display:inline-flex; align-items:center; gap:.5rem; padding:.4rem .75rem; border-radius:9999px; font-size:.85rem; font-weight:600; background: rgba(103,80,164,0.12); color:#4b5563; }
+.dark .m3-badge { background: rgba(255,255,255,0.08); color:#e5e7eb; }
+
+/* Action bar */
+.qc-dialog-actions { position: sticky; bottom: 0; background: transparent; backdrop-filter: none; }
+
+/* --- Refined dialog sizing & layout tweaks --- */
+.qc-dialog { width: min(860px, 94vw); }
+/* Chip grid for a more organized filters layout */
+.chip-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(160px, 1fr)); gap: .6rem .6rem; }
+/* Visual indicator inside chips */
+.chip-indicator { width: 1.1rem; height: 1.1rem; border-radius: 9999px; border: 2px solid rgba(103,80,164,0.45); display:inline-flex; align-items:center; justify-content:center; font-weight:800; line-height:1; font-size:.8rem; color:#fff; background: transparent; }
+.m3-chip.active .chip-indicator { background: #7c5fd3; border-color: #7c5fd3; box-shadow: 0 0 0 3px rgba(124,95,211,0.25); }
+/* Larger badge option for Learn More */
+.m3-badge-lg { padding:.5rem 1rem; font-size:1rem; }
 `;
 
 // Compound data with detailed information
@@ -557,25 +597,157 @@ const getCardClasses = (theme: string) => {
 		case "high-contrast":
 			return "compound-card flex flex-col relative overflow-hidden group border-4 bg-black text-yellow-300 rounded-2xl shadow-[0_8px_40px_0_rgba(255,255,0,0.42)] hover:shadow-[0_16px_64px_0_rgba(255,255,0,0.52)] border-yellow-300 hover:border-yellow-200 animate-fade-in";
 		case "light":
-			return "compound-card flex flex-col relative overflow-hidden group border-2.5 bg-gradient-to-br from-white via-gray-50 to-gray-100 text-gray-900 rounded-[2.5rem] shadow-[0_6px_32px_0_rgba(60,60,90,0.10)] hover:shadow-[0_12px_48px_0_rgba(60,60,90,0.18)] border-blue-200/60 hover:border-blue-400/80 animate-fade-in";
+			return "compound-card flex flex-col relative overflow-hidden group border-2.5 bg-gradient-to-br from-white via-gray-50 to-gray-100 text-gray-900 rounded-[2.5rem] shadow-[0_6px 32px 0_rgba(60,60,90,0.10)] hover:shadow-[0_12px 48px 0_rgba(60,60,90,0.18)] border-blue-200/60 hover:border-blue-400/80 animate-fade-in";
 		case "win98":
 			return "compound-card flex flex-col relative overflow-hidden group border-2 bg-[#c0c0c0] text-black rounded-lg shadow-[3px_3px_0px_#000] hover:shadow-[4px_4px_0px_#000] border-t-[#e0e0e0] border-l-[#e0e0e0] border-r-[#808080] border-b-[#808080] animate-fade-in";
 		case "pastel":
-			return "compound-card flex flex-col relative overflow-hidden group border-2.5 bg-gradient-to-br from-pink-100 via-blue-100 to-green-100 text-gray-800 rounded-[2.5rem] shadow-[0_6px_32px_0_rgba(236,72,153,0.10)] hover:shadow-[0_12px_48px_0_rgba(168,85,247,0.18)] border-pink-200/70 hover:border-purple-300/90 animate-fade-in";
+			return "compound-card flex flex-col relative overflow-hidden group border-2.5 bg-gradient-to-br from-pink-100 via-blue-100 to-green-100 text-gray-800 rounded-[2.5rem] shadow-[0_6px_32px 0_rgba(236,72,153,0.10)] hover:shadow-[0_12px 48px 0_rgba(168,85,247,0.18)] border-pink-200/70 hover:border-purple-300/90 animate-fade-in";
 		case "peach":
-			return "compound-card flex flex-col relative overflow-hidden group border-2.5 bg-gradient-to-br from-orange-100 via-pink-200 to-yellow-100 text-orange-900 rounded-[2.5rem] shadow-[0_6px_32px_0_rgba(251,191,36,0.10)] hover:shadow-[0_12px_48px_0_rgba(251,113,133,0.18)] border-orange-200/70 hover:border-pink-300/90 animate-fade-in";
+			return "compound-card flex flex-col relative overflow-hidden group border-2.5 bg-gradient-to-br from-orange-100 via-pink-200 to-yellow-100 text-orange-900 rounded-[2.5rem] shadow-[0_6px_32px 0_rgba(251,191,36,0.10)] hover:shadow-[0_12px 48px 0_rgba(251,113,133,0.18)] border-orange-200/70 hover:border-pink-300/90 animate-fade-in";
 		case "solarized":
-			return "compound-card flex flex-col relative overflow-hidden group border-2.5 bg-gradient-to-br from-[#fdf6e3] via-[#eee8d5] to-[#93a1a1] text-[#657b83] rounded-[2.5rem] shadow-[0_6px_32px_0_rgba(181,137,0,0.10)] hover:shadow-[0_12px_48px_0_rgba(38,139,210,0.18)] border-[#b58900]/30 hover:border-[#268bd2]/70 animate-fade-in";
+			return "compound-card flex flex-col relative overflow-hidden group border-2.5 bg-gradient-to-br from-[#fdf6e3] via-[#eee8d5] to-[#93a1a1] text-[#657b83] rounded-[2.5rem] shadow-[0_6px_32px 0_rgba(181,137,0,0.10)] hover:shadow-[0_12px 48px 0_rgba(38,139,210,0.18)] border-[#b58900]/30 hover:border-[#268bd2]/70 animate-fade-in";
 		default:
-			return "compound-card flex flex-col relative overflow-hidden group border-2.5 bg-gradient-to-br from-white via-gray-50 to-gray-100 text-gray-900 rounded-[2.5rem] shadow-[0_6px_32px_0_rgba(60,60,90,0.10)] hover:shadow-[0_12px_48px_0_rgba(60,60,90,0.18)] border-gray-200/90 hover:border-blue-400/60 animate-fade-in";
+			return "compound-card flex flex-col relative overflow-hidden group border-2.5 bg-gradient-to-br from-white via-gray-50 to-gray-100 text-gray-900 rounded-[2.5rem] shadow-[0_6px 32px 0_rgba(60,60,90,0.10)] hover:shadow-[0_12px 48px 0_rgba(60,60,90,0.18)] border-gray-200/90 hover:border-blue-400/60 animate-fade-in";
+	}
+};
+
+// New: theme-aware modal styles for Filters popup
+const getModalStyles = (theme: string): React.CSSProperties => {
+	switch (theme) {
+		case "dark":
+		case "night":
+		case "dracula":
+		case "forest":
+		case "dark-glass":
+			return {
+				background: "linear-gradient(180deg, rgba(24,28,42,0.96) 0%, rgba(24,28,42,0.88) 100%)",
+				border: "1px solid rgba(255,255,255,0.08)",
+			};
+		case "cyberpunk":
+			return {
+				background: "linear-gradient(180deg, rgba(15,0,38,0.96) 0%, rgba(15,0,38,0.88) 100%)",
+				border: "1px solid rgba(255,0,204,0.35)",
+				boxShadow: "0 24px 64px rgba(255,0,204,0.25)",
+			};
+		case "win98":
+			return { background: "#e0e0e0", border: "2px solid #808080", boxShadow: "3px 3px 0 #000" };
+		case "pastel":
+			return {
+				background: "linear-gradient(180deg, rgba(252,231,243,0.95) 0%, rgba(224,242,254,0.9) 100%)",
+				border: "1px solid rgba(236,72,153,0.25)",
+			};
+		case "peach":
+			return {
+				background: "linear-gradient(180deg, rgba(255,247,237,0.95) 0%, rgba(254,243,199,0.9) 100%)",
+				border: "1px solid rgba(251,146,60,0.25)",
+			};
+		case "high-contrast":
+			return { background: "#000", border: "3px solid #FFD600" };
+		case "amoled":
+			return {
+				background: "linear-gradient(180deg, rgba(0,0,0,0.96) 0%, rgba(10,10,10,0.9) 100%)",
+				border: "1px solid #222",
+			};
+		case "solarized":
+			return {
+				background: "linear-gradient(180deg, rgba(253,246,227,0.95) 0%, rgba(238,232,213,0.9) 100%)",
+				border: "1px solid rgba(181,137,0,0.25)",
+			};
+		case "light":
+		default:
+			return {
+				background: "linear-gradient(180deg, rgba(255,255,255,0.95) 0%, rgba(255,255,255,0.8) 100%)",
+				border: "1px solid rgba(0,0,0,0.06)",
+			};
 	}
 };
 
 const OrganicCompounds: React.FC<OrganicCompoundsProps> = ({ theme }) => {
+	const [filterOpen, setFilterOpen] = React.useState(false);
+	const [enabledSections, setEnabledSections] = React.useState<Record<string, boolean>>({
+		"Medicine & Pharmaceuticals": true,
+		"Energy & Fuels": true,
+		"Industrial Solvents": true,
+		"Biochemistry & Nutrition": true,
+	});
+	// Details modal state
+	const [infoOpen, setInfoOpen] = React.useState(false);
+	const [selectedCompound, setSelectedCompound] = React.useState<CompoundInfo | null>(null);
+
+	// Added: icons and active count for refined Filters UI
+	const categoryIcons: Record<string, string> = {
+		"Medicine & Pharmaceuticals": "💊",
+		"Energy & Fuels": "⚡",
+		"Industrial Solvents": "🧪",
+		"Biochemistry & Nutrition": "🧬",
+	};
+	const activeCount = Object.values(enabledSections).filter(Boolean).length;
+
+	React.useEffect(() => {
+		const handler = () => setFilterOpen(true);
+		window.addEventListener("open-page-filters", handler);
+		return () => window.removeEventListener("open-page-filters", handler);
+	}, []);
+
+	const toggleSection = (key: string) => setEnabledSections((s) => ({ ...s, [key]: !s[key] }));
+	const setAll = (val: boolean) => {
+		const next: Record<string, boolean> = {};
+		["Medicine & Pharmaceuticals", "Energy & Fuels", "Industrial Solvents", "Biochemistry & Nutrition"].forEach(
+			(k) => (next[k] = val)
+		);
+		setEnabledSections(next);
+	};
+
+	// Build sections and apply filtering
+	const sections = [
+		{
+			title: "Medicine & Pharmaceuticals",
+			subtitle: "Essential compounds for healthcare and treatment",
+			icon: "💊",
+			color: "from-red-500 to-pink-600",
+			compounds: compounds.filter((c) => c.category === "Medicine"),
+		},
+		{
+			title: "Energy & Fuels",
+			subtitle: "Hydrocarbons powering our world",
+			icon: "⚡",
+			color: "from-orange-500 to-yellow-600",
+			compounds: compounds.filter((c) => c.category === "Energy"),
+		},
+		{
+			title: "Industrial Solvents",
+			subtitle: "Chemical compounds for industrial processes",
+			icon: "🧪",
+			color: "from-blue-500 to-indigo-600",
+			compounds: compounds.filter((c) => c.category === "Solvent"),
+		},
+		{
+			title: "Biochemistry & Nutrition",
+			subtitle: "Molecules essential for life and health",
+			icon: "🧬",
+			color: "from-green-500 to-emerald-600",
+			compounds: compounds.filter((c) => c.category === "Biochemistry"),
+		},
+	] as const;
+	const displayedSections = sections.filter((s) => enabledSections[s.title]);
+
 	return (
 		<div className={getThemeClasses(theme) + " pt-24"}>
 			{/* Add custom styles */}
-			<style>{styles}</style>
+			<style>
+				{styles +
+					`
+/* --- Refined dialog sizing & layout tweaks --- */
+.qc-dialog { width: min(860px, 94vw); }
+/* Chip grid for a more organized filters layout */
+.chip-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(160px, 1fr)); gap: .6rem .6rem; }
+/* Visual indicator inside chips */
+.chip-indicator { width: 1.1rem; height: 1.1rem; border-radius: 9999px; border: 2px solid rgba(103,80,164,0.45); display:inline-flex; align-items:center; justify-content:center; font-weight:800; line-height:1; font-size:.8rem; color:#fff; background: transparent; }
+.m3-chip.active .chip-indicator { background: #7c5fd3; border-color: #7c5fd3; box-shadow: 0 0 0 3px rgba(124,95,211,0.25); }
+/* Larger badge option for Learn More */
+.m3-badge-lg { padding:.5rem 1rem; font-size:1rem; }
+`}
+			</style>
 			{/* Custom Scrollbar Styles for Theme */}
 			<style>{getScrollbarStyles(theme)}</style>
 
@@ -593,36 +765,7 @@ const OrganicCompounds: React.FC<OrganicCompoundsProps> = ({ theme }) => {
 			{/* Main Content */}
 			<div className="max-w-6xl mx-auto px-[5vw] pb-24">
 				{/* Compounds Grid by Categories */}
-				{[
-					{
-						title: "Medicine & Pharmaceuticals",
-						subtitle: "Essential compounds for healthcare and treatment",
-						icon: "💊",
-						color: "from-red-500 to-pink-600",
-						compounds: compounds.filter((c) => c.category === "Medicine"),
-					},
-					{
-						title: "Energy & Fuels",
-						subtitle: "Hydrocarbons powering our world",
-						icon: "⚡",
-						color: "from-orange-500 to-yellow-600",
-						compounds: compounds.filter((c) => c.category === "Energy"),
-					},
-					{
-						title: "Industrial Solvents",
-						subtitle: "Chemical compounds for industrial processes",
-						icon: "🧪",
-						color: "from-blue-500 to-indigo-600",
-						compounds: compounds.filter((c) => c.category === "Solvent"),
-					},
-					{
-						title: "Biochemistry & Nutrition",
-						subtitle: "Molecules essential for life and health",
-						icon: "🧬",
-						color: "from-green-500 to-emerald-600",
-						compounds: compounds.filter((c) => c.category === "Biochemistry"),
-					},
-				].map((section) => (
+				{displayedSections.map((section) => (
 					<section key={section.title} className="mb-20">
 						{/* Section Header */}
 						<div
@@ -646,8 +789,7 @@ const OrganicCompounds: React.FC<OrganicCompoundsProps> = ({ theme }) => {
 								<div className={`w-20 h-1 bg-gradient-to-r ${section.color} rounded-full`}></div>
 							</div>
 						</div>
-
-						{/* Compounds Grid - Clean 4 per row layout */}
+						{/* Compounds Grid */}
 						<div className="compound-grid">
 							{section.compounds.map((compound) => (
 								<div
@@ -852,7 +994,7 @@ const OrganicCompounds: React.FC<OrganicCompoundsProps> = ({ theme }) => {
 											</p>
 										</div>
 
-										{/* Properties Section at the bottom */}
+										{/* Properties and CTA */}
 										<div className="mt-auto pt-8 flex flex-col gap-4">
 											<div
 												className="bg-gray-100/90 dark:bg-gray-900/70 rounded-[2.5rem] p-7 border border-black/5 dark:border-white/5 shadow-md flex flex-col gap-2 animate-fade-in"
@@ -895,6 +1037,10 @@ const OrganicCompounds: React.FC<OrganicCompoundsProps> = ({ theme }) => {
 												className="m3-button"
 												tabIndex={0}
 												aria-label={`Learn more about ${compound.name}`}
+												onClick={() => {
+													setSelectedCompound(compound);
+													setInfoOpen(true);
+												}}
 											>
 												Learn More
 											</button>
@@ -906,6 +1052,148 @@ const OrganicCompounds: React.FC<OrganicCompoundsProps> = ({ theme }) => {
 					</section>
 				))}
 			</div>
+
+			{/* Filters Modal (popup) */}
+			{filterOpen && (
+				<div className="qc-dialog-overlay" onClick={() => setFilterOpen(false)} aria-hidden={false}>
+					<div
+						className="qc-dialog"
+						style={getModalStyles(theme)}
+						onClick={(e) => e.stopPropagation()}
+						role="dialog"
+						aria-modal="true"
+						aria-label="Filters"
+					>
+						<div className="qc-dialog-header">
+							<div className="qc-dialog-title">
+								<span className="m3-badge">Filters</span>
+								<span className="text-sm text-gray-500 dark:text-gray-400">Organize visible categories</span>
+							</div>
+							<button className="m3-button" onClick={() => setFilterOpen(false)} aria-label="Close Filters">
+								Close
+							</button>
+						</div>
+						<div className="qc-divider" />
+						<div className="qc-dialog-body">
+							<p className="text-sm text-gray-600 dark:text-gray-300 mb-3">
+								Choose which sections to display. Showing <span className="font-semibold">{activeCount}</span> of
+								4.
+							</p>
+							<div className="chip-grid">
+								{sections.map((s) => {
+									const active = !!enabledSections[s.title];
+									return (
+										<button
+											key={s.title}
+											type="button"
+											className={`m3-chip ${active ? "active" : ""}`}
+											onClick={() => toggleSection(s.title)}
+											aria-pressed={active}
+										>
+											<span className="chip-indicator" aria-hidden="true">
+												{active ? "✓" : ""}
+											</span>
+											<span>
+												{categoryIcons[s.title] || ""} {s.title}
+											</span>
+										</button>
+									);
+								})}
+							</div>
+						</div>
+						<div className="qc-dialog-actions">
+							<div className="flex items-center justify-between w-full">
+								<div className="flex items-center gap-2">
+									<button className="m3-button" onClick={() => setAll(false)}>
+										Clear All
+									</button>
+									<button className="m3-button" onClick={() => setAll(true)}>
+										Select All
+									</button>
+								</div>
+								<div className="flex items-center gap-3">
+									<span className="text-sm text-gray-500 dark:text-gray-400">{activeCount} selected</span>
+									<button className="m3-button" onClick={() => setFilterOpen(false)}>
+										Apply
+									</button>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			)}
+
+			{/* Details Modal (Learn More) */}
+			{infoOpen && selectedCompound && (
+				<div className="qc-dialog-overlay" onClick={() => setInfoOpen(false)} aria-hidden={false}>
+					<div
+						className="qc-dialog"
+						style={getModalStyles(theme)}
+						onClick={(e) => e.stopPropagation()}
+						role="dialog"
+						aria-modal="true"
+						aria-label={`${selectedCompound.name} details`}
+					>
+						<div className="qc-dialog-header">
+							<div className="qc-dialog-title">
+								<h4 className="text-3xl md:text-4xl font-extrabold text-gray-900 dark:text-white">
+									{selectedCompound.name}
+								</h4>
+								<span className="m3-badge m3-badge-lg">{selectedCompound.formula}</span>
+							</div>
+							<button className="m3-button" onClick={() => setInfoOpen(false)} aria-label="Close details">
+								Close
+							</button>
+						</div>
+						<div className="qc-divider" />
+						<div className="qc-dialog-body space-y-6 text-lg md:text-xl leading-relaxed">
+							<p className="text-gray-700 dark:text-gray-300">{selectedCompound.description}</p>
+							<h5 className="text-sm font-semibold tracking-wider uppercase text-gray-500 dark:text-gray-400">
+								Key properties
+							</h5>
+							<div className="grid grid-cols-3 gap-4 text-center">
+								<div>
+									<span className="text-sm text-gray-500 dark:text-gray-400 block">Weight</span>
+									<span className="text-xl font-bold text-gray-900 dark:text-white">
+										{selectedCompound.molecularWeight}
+									</span>
+								</div>
+								<div>
+									<span className="text-sm text-gray-500 dark:text-gray-400 block">Melting</span>
+									<span className="text-xl font-bold text-gray-900 dark:text-white">
+										{selectedCompound.meltingPoint}
+									</span>
+								</div>
+								<div>
+									<span className="text-sm text-gray-500 dark:text-gray-400 block">Boiling</span>
+									<span className="text-xl font-bold text-gray-900 dark:text-white">
+										{selectedCompound.boilingPoint}
+									</span>
+								</div>
+							</div>
+							<h5 className="text-sm font-semibold tracking-wider uppercase text-gray-500 dark:text-gray-400">
+								Uses
+							</h5>
+							<div className="flex flex-wrap gap-2">
+								{selectedCompound.uses.map((u) => (
+									<span key={u} className="m3-badge">
+										{u}
+									</span>
+								))}
+							</div>
+							<h5 className="text-sm font-semibold tracking-wider uppercase text-gray-500 dark:text-gray-400">
+								Structure
+							</h5>
+							<p className="text-gray-800 dark:text-gray-200">{selectedCompound.structure}</p>
+						</div>
+						<div className="qc-dialog-actions">
+							<button className="m3-button" onClick={() => setInfoOpen(false)}>
+								Close
+							</button>
+						</div>
+					</div>
+				</div>
+			)}
 		</div>
 	);
 };
