@@ -8,3 +8,7 @@ export { default as NavbarRouter } from "./NavbarRouter.tsx";
 export { default as AtomLogo } from "./AtomLogo.tsx";
 export { default as OrganicCompounds } from "./OrganicCompounds.tsx";
 export { default as InorganicCompounds } from "./InorganicCompounds.tsx";
+export { default as FilterModal } from "./FilterModal.tsx";
+export { default as DetailModal } from "./DetailModal.tsx";
+export { default as ScrollBar } from "./ScrollBar.tsx";
+export { default as ThemeProvider } from "./ThemeProvider.tsx";

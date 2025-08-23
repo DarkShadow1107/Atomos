@@ -1,4 +1,6 @@
 import React from "react";
+import FilterModal from "./FilterModal";
+import DetailModal from "./DetailModal";
 
 // --- Quantum Chemistry Data ---
 interface QuantumConcept {
@@ -284,7 +286,7 @@ const styles = `
   border-radius: 2.5rem;
   box-shadow: 0 4px 32px 0 rgba(60, 60, 90, 0.10), 0 1.5px 6px 0 rgba(60, 60, 90, 0.08);
   border: 2.5px solid var(--m3-outline, #e0e0e0);
-  padding: 3.25rem 2.75rem 2.75rem 2.75rem; /* More padding */
+  padding: 3rem 2.5rem 2.5rem 2.5rem;
   margin-bottom: 0.5rem;
   min-height: 540px; /* Taller like other pages */
   overflow: hidden;
@@ -342,22 +344,23 @@ const styles = `
   align-items: center;
   justify-content: center;
   gap: 0.5rem;
-  padding: 0.9rem 2.4rem;
+  padding: 0.85rem 2.2rem;
   border-radius: 2rem;
-  font-size: 1.05rem;
+  font-size: 1.1rem;
   font-weight: 600;
   background: linear-gradient(90deg, #6750a4 0%, #a084e8 100%);
   color: #fff;
-  box-shadow: 0 2px 8px 0 rgba(103, 80, 164, 0.18);
+  box-shadow: 0 2px 8px 0 rgba(103, 80, 164, 0.13);
   border: none;
   outline: none;
   cursor: pointer;
   transition: background 0.2s, box-shadow 0.2s, transform 0.2s;
+  margin-top: 2.2rem;
 }
 .m3-button:hover, .m3-button:focus {
   background: linear-gradient(90deg, #7c5fd3 0%, #b39ddb 100%);
-  box-shadow: 0 6px 18px 0 rgba(103, 80, 164, 0.26);
-  transform: translateY(-2px) scale(1.03);
+  box-shadow: 0 4px 16px 0 rgba(103, 80, 164, 0.18);
+  transform: translateY(-2px) scale(1.04);
 }
 
 /* Toolbar */
@@ -422,7 +425,21 @@ const styles = `
 const getThemeClasses = (theme: string) => {
 	const baseClasses = "min-h-screen transition-all duration-300 overflow-auto";
 	switch (theme) {
+		case "cyberpunk":
+			return `${baseClasses} bg-gradient-to-br from-purple-900 via-pink-800 to-cyan-900 text-cyan-100`;
+		case "forest":
+			return `${baseClasses} bg-gradient-to-br from-green-900 via-green-700 to-green-500 text-white`;
+		case "dark-glass":
+			return `${baseClasses} bg-gradient-to-br from-gray-900/90 via-gray-800/80 to-gray-700/90 backdrop-blur-md text-white`;
+		case "high-contrast":
+			return `${baseClasses} bg-black text-yellow-300`;
+		case "dracula":
+			return `${baseClasses} bg-gradient-to-br from-[#2a0f25] via-[#4d1a36] to-[#8b1e41] text-[#f8f8f2]`;
+		case "amoled":
+			return `${baseClasses} bg-black text-white`;
 		case "dark":
+		case "night":
+		case "forest-dark": // alias safeguard
 			return `${baseClasses} bg-gradient-to-br from-gray-900 via-gray-800 to-gray-700 text-white`;
 		case "light":
 			return `${baseClasses} bg-gradient-to-br from-white via-gray-50 to-gray-100 text-gray-900`;
@@ -433,63 +450,26 @@ const getThemeClasses = (theme: string) => {
 
 const getCardClasses = (theme: string) => {
 	switch (theme) {
+		case "cyberpunk":
+			return "compound-card flex flex-col relative overflow-hidden group border-2.5 bg-gradient-to-br from-[#0f0026] via-[#ff00cc] to-[#00fff7] text-cyan-100 rounded-[2.75rem] shadow-[0_8px_40px_0_rgba(255,0,255,0.32)] hover:shadow-[0_16px_64px_0_rgba(255,0,255,0.42)] border-[#ff00cc]/80 hover:border-[#00fff7]/90 animate-fade-in";
+		case "forest":
+			return "compound-card flex flex-col relative overflow-hidden group border-2.5 bg-gradient-to-br from-[#0d261a] via-[#14532d] to-[#166534] text-green-100 rounded-[2.75rem] shadow-[0_8px_40px_0_rgba(16,185,129,0.28)] hover:shadow-[0_16px_64px_0_rgba(34,197,94,0.38)] border-green-700/80 hover:border-emerald-300/90 animate-fade-in";
+		case "dark-glass":
+			return "compound-card flex flex-col relative overflow-hidden group border-2.5 bg-gradient-to-br from-[#232946]/90 via-[#181c2a]/80 to-[#232946]/90 backdrop-blur-2xl text-white rounded-[2.25rem] shadow-[0_8px_40px_0_rgba(0,255,255,0.22)] hover:shadow-[0_16px_64px_0_rgba(0,255,255,0.32)] border-cyan-300/70 hover:border-cyan-200/90 animate-fade-in";
+		case "high-contrast":
+		case "highContrast": // alias
+			return "compound-card flex flex-col relative overflow-hidden group border-4 bg-black text-yellow-300 rounded-2xl shadow-[0_8px_40px_0_rgba(255,255,0,0.42)] hover:shadow-[0_16px_64px_0_rgba(255,255,0,0.52)] border-yellow-300 hover:border-yellow-200 animate-fade-in";
+		case "dracula":
+			return "compound-card flex flex-col relative overflow-hidden group border-2.5 bg-gradient-to-br from-[#2a0f25] via-[#4d1a36] to-[#8b1e41] text-[#f8f8f2] rounded-[2.25rem] shadow-[0_8px_40px_0_rgba(255,85,140,0.30)] hover:shadow-[0_16px_64px_0_rgba(255,85,140,0.45)] border-[#ff5678]/70 hover:border-[#ff8fa8]/90 animate-fade-in";
+		case "amoled":
+			return "compound-card flex flex-col relative overflow-hidden group border-2.5 bg-gradient-to-br from-black via-[#181818] to-[#232946] text-white rounded-[2.5rem] shadow-[0_8px_40px_0_rgba(59,130,246,0.28)] hover:shadow-[0_16px_64px_0_rgba(59,130,246,0.38)] border-white/60 hover:border-blue-400/90 animate-fade-in";
 		case "dark":
+		case "night":
 			return "compound-card flex flex-col relative overflow-hidden group border-2.5 bg-gradient-to-br from-[#181c2a] via-[#232946] to-[#1a1a2e] text-white rounded-3xl animate-fade-in";
 		case "light":
 			return "compound-card flex flex-col relative overflow-hidden group border-2.5 bg-gradient-to-br from-white via-gray-50 to-gray-100 text-gray-900 rounded-[2.5rem] animate-fade-in";
 		default:
 			return "compound-card flex flex-col relative overflow-hidden group border-2.5 bg-gradient-to-br from-white via-gray-50 to-gray-100 text-gray-900 rounded-[2.5rem] animate-fade-in";
-	}
-};
-
-// New: theme-aware modal styles for Filters popup
-const getModalStyles = (theme: string): React.CSSProperties => {
-	switch (theme) {
-		case "dark":
-		case "night":
-		case "dracula":
-		case "forest":
-		case "dark-glass":
-			return {
-				background: "linear-gradient(180deg, rgba(24,28,42,0.96) 0%, rgba(24,28,42,0.88) 100%)",
-				border: "1px solid rgba(255,255,255,0.08)",
-			};
-		case "cyberpunk":
-			return {
-				background: "linear-gradient(180deg, rgba(15,0,38,0.96) 0%, rgba(15,0,38,0.88) 100%)",
-				border: "1px solid rgba(255,0,204,0.35)",
-				boxShadow: "0 24px 64px rgba(255,0,204,0.25)",
-			};
-		case "win98":
-			return { background: "#e0e0e0", border: "2px solid #808080", boxShadow: "3px 3px 0 #000" };
-		case "pastel":
-			return {
-				background: "linear-gradient(180deg, rgba(252,231,243,0.95) 0%, rgba(224,242,254,0.9) 100%)",
-				border: "1px solid rgba(236,72,153,0.25)",
-			};
-		case "peach":
-			return {
-				background: "linear-gradient(180deg, rgba(255,247,237,0.95) 0%, rgba(254,243,199,0.9) 100%)",
-				border: "1px solid rgba(251,146,60,0.25)",
-			};
-		case "high-contrast":
-			return { background: "#000", border: "3px solid #FFD600" };
-		case "amoled":
-			return {
-				background: "linear-gradient(180deg, rgba(0,0,0,0.96) 0%, rgba(10,10,10,0.9) 100%)",
-				border: "1px solid #222",
-			};
-		case "solarized":
-			return {
-				background: "linear-gradient(180deg, rgba(253,246,227,0.95) 0%, rgba(238,232,213,0.9) 100%)",
-				border: "1px solid rgba(181,137,0,0.25)",
-			};
-		case "light":
-		default:
-			return {
-				background: "linear-gradient(180deg, rgba(255,255,255,0.95) 0%, rgba(255,255,255,0.8) 100%)",
-				border: "1px solid rgba(0,0,0,0.06)",
-			};
 	}
 };
 
@@ -504,13 +484,12 @@ const QuantumChemistry: React.FC<QuantumChemistryProps> = ({ theme }) => {
 		Principles: true,
 	});
 
-	// New: icons for categories and active count for filters summary
+	// New: icons for categories
 	const categoryIcons: Record<string, string> = {
 		Orbitals: "🌀",
 		"Quantum Numbers": "🔢",
 		Principles: "📜",
 	};
-	const activeCount = Object.values(enabledSections).filter(Boolean).length;
 
 	React.useEffect(() => {
 		const handler = () => setFilterOpen(true);
@@ -536,7 +515,7 @@ const QuantumChemistry: React.FC<QuantumChemistryProps> = ({ theme }) => {
 				? "dark"
 				: theme === "amoled"
 				? "amoled"
-				: theme === "high-contrast"
+				: theme === "high-contrast" || theme === "highContrast"
 				? "highContrast"
 				: "light";
 		const map = {
@@ -560,9 +539,9 @@ const QuantumChemistry: React.FC<QuantumChemistryProps> = ({ theme }) => {
 					badgeShadow: "0 0 24px 8px #1e40af22",
 				},
 				highContrast: {
-					bg: "linear-gradient(135deg, #FFD600 0%, #FFB300 100%)",
+					bg: "linear-gradient(135deg, #FFD600 0%, #FFA500 100%)",
 					shadow: "0 0 32px 12px #FFD60044",
-					badgeBg: "linear-gradient(90deg, #FFD600 0%, #FFB300 100%)",
+					badgeBg: "linear-gradient(90deg, #FFD600 0%, #FFA500 100%)",
 					badgeShadow: "0 0 24px 8px #FFD60033",
 				},
 			},
@@ -586,9 +565,9 @@ const QuantumChemistry: React.FC<QuantumChemistryProps> = ({ theme }) => {
 					badgeShadow: "0 0 24px 8px #be185d22",
 				},
 				highContrast: {
-					bg: "linear-gradient(135deg, #FFD600 0%, #FFB300 100%)",
+					bg: "linear-gradient(135deg, #FFD600 0%, #FFA500 100%)",
 					shadow: "0 0 32px 12px #FFD60044",
-					badgeBg: "linear-gradient(90deg, #FFD600 0%, #FFB300 100%)",
+					badgeBg: "linear-gradient(90deg, #FFD600 0%, #FFA500 100%)",
 					badgeShadow: "0 0 24px 8px #FFD60033",
 				},
 			},
@@ -612,9 +591,9 @@ const QuantumChemistry: React.FC<QuantumChemistryProps> = ({ theme }) => {
 					badgeShadow: "0 0 24px 8px #065f4622",
 				},
 				highContrast: {
-					bg: "linear-gradient(135deg, #FFD600 0%, #FFB300 100%)",
+					bg: "linear-gradient(135deg, #FFD600 0%, #FFA500 100%)",
 					shadow: "0 0 32px 12px #FFD60044",
-					badgeBg: "linear-gradient(90deg, #FFD600 0%, #FFB300 100%)",
+					badgeBg: "linear-gradient(90deg, #FFD600 0%, #FFA500 100%)",
 					badgeShadow: "0 0 24px 8px #FFD60033",
 				},
 			},
@@ -663,6 +642,59 @@ const QuantumChemistry: React.FC<QuantumChemistryProps> = ({ theme }) => {
 .m3-chip.active .chip-indicator { background: #7c5fd3; border-color: #7c5fd3; box-shadow: 0 0 0 3px rgba(124,95,211,0.25); }
 /* Larger badge option for Learn More */
 .m3-badge-lg { padding:.5rem 1rem; font-size:1rem; }
+/* High-contrast theme: section headers black, card content yellow */
+${
+	theme === "high-contrast" || theme === "highContrast"
+		? `
+.compound-card {
+  background: #000 !important;
+}
+/* Section headers should be black */
+h2.text-3xl, h2.text-4xl {
+  color: #000 !important;
+}
+p.text-lg.text-gray-600 {
+  color: #000 !important;
+}
+/* Card content should remain yellow */
+.compound-card h3,
+.compound-card .text-2xl,
+.compound-card p,
+.compound-card ul,
+.compound-card li,
+.compound-card div.text-2xl {
+  color: #FFD600 !important;
+}
+/* Specifically target the symbol text */
+.compound-card .font-mono {
+  color: #FFD600 !important;
+}
+/* Text inside yellow icon boxes should be black */
+.compound-card .card-icon span {
+  color: #000 !important;
+}
+/* Text inside yellow badge boxes should be black */
+.compound-card .card-badge {
+  color: #000 !important;
+}
+`
+		: ""
+}
+/* Solarized theme: text inside icon and badge boxes should be black */
+${
+	theme === "solarized"
+		? `
+/* Text inside icon boxes should be black */
+.compound-card .card-icon span {
+  color: #000 !important;
+}
+/* Text inside badge boxes should be black */
+.compound-card .card-badge {
+  color: #000 !important;
+}
+`
+		: ""
+}
 `}
 			</style>
 			{/* Custom Scrollbar Styles for Theme */}
@@ -746,11 +778,12 @@ const QuantumChemistry: React.FC<QuantumChemistryProps> = ({ theme }) => {
 													))}
 												</ul>
 											</div>
-											<div className="mt-8">
+											<div className="mt-auto pt-8 flex flex-col gap-4">
 												<button
 													className="m3-button"
-													onClick={() => openDialog(concept)}
+													tabIndex={0}
 													aria-label={`Learn more about ${concept.name}`}
+													onClick={() => openDialog(concept)}
 												>
 													Learn More
 												</button>
@@ -765,112 +798,33 @@ const QuantumChemistry: React.FC<QuantumChemistryProps> = ({ theme }) => {
 			</div>
 
 			{/* Filters Modal (popup) */}
-			{filterOpen && (
-				<div className="qc-dialog-overlay" onClick={() => setFilterOpen(false)} aria-hidden={false}>
-					<div
-						className="qc-dialog"
-						style={getModalStyles(theme)}
-						onClick={(e) => e.stopPropagation()}
-						role="dialog"
-						aria-modal="true"
-						aria-label="Filters"
-					>
-						<div className="qc-dialog-header">
-							<div className="qc-dialog-title">
-								<span className="m3-badge">Filters</span>
-								<span className="text-sm text-gray-500 dark:text-gray-400">Organize visible categories</span>
-							</div>
-							<button className="m3-button" onClick={() => setFilterOpen(false)} aria-label="Close Filters">
-								Close
-							</button>
-						</div>
-						<div className="qc-divider" />
-						<div className="qc-dialog-body">
-							<p className="text-sm text-gray-600 dark:text-gray-300 mb-3">
-								Choose which sections to display. Showing <span className="font-semibold">{activeCount}</span> of
-								3.
-							</p>
-							<div className="chip-grid">
-								{Object.keys(enabledSections).map((key) => {
-									const active = !!enabledSections[key];
-									return (
-										<button
-											key={key}
-											type="button"
-											className={`m3-chip ${active ? "active" : ""}`}
-											onClick={() => toggleSection(key)}
-											aria-pressed={active}
-										>
-											<span className="chip-indicator" aria-hidden="true">
-												{active ? "✓" : ""}
-											</span>
-											<span>
-												{categoryIcons[key] || ""} {key}
-											</span>
-										</button>
-									);
-								})}
-							</div>
-						</div>
-						<div className="qc-dialog-actions">
-							<div className="flex items-center justify-between w-full">
-								<div className="flex items-center gap-2">
-									<button className="m3-button" onClick={() => setAll(false)}>
-										Clear All
-									</button>
-									<button className="m3-button" onClick={() => setAll(true)}>
-										Select All
-									</button>
-								</div>
-								<div className="flex items-center gap-3">
-									<span className="text-sm text-gray-500 dark:text-gray-400">{activeCount} selected</span>
-									<button className="m3-button" onClick={() => setFilterOpen(false)}>
-										Apply
-									</button>
-								</div>
-							</div>
-						</div>
-					</div>
-				</div>
-			)}
+			<FilterModal
+				isOpen={filterOpen}
+				onClose={() => setFilterOpen(false)}
+				enabledSections={enabledSections}
+				toggleSection={toggleSection}
+				setAll={setAll}
+				categoryIcons={categoryIcons}
+				theme={theme}
+				totalSections={3}
+			/>
 
 			{/* Details Modal (Learn More) */}
-			{dialogOpen && selectedConcept && (
-				<div
-					className="qc-dialog-overlay"
-					role="dialog"
-					aria-modal="true"
-					aria-label={`${selectedConcept.name} details`}
-					onClick={closeDialog}
-				>
-					<div className="qc-dialog" style={getModalStyles(theme)} onClick={(e) => e.stopPropagation()}>
-						<div className="qc-dialog-header">
-							<div className="qc-dialog-title">
-								<h4 className="text-3xl md:text-4xl font-extrabold text-gray-900 dark:text-white">
-									{selectedConcept.name}
-								</h4>
-								{selectedConcept.symbol && <span className="m3-badge m3-badge-lg">{selectedConcept.symbol}</span>}
-							</div>
-							<button className="m3-button" onClick={closeDialog}>
-								Close
-							</button>
-						</div>
-						<div className="qc-divider" />
-						<div className="qc-dialog-body space-y-6 text-lg md:text-xl leading-relaxed">
-							<p className="text-gray-700 dark:text-gray-300">{selectedConcept.description}</p>
-							<h5 className="text-sm font-semibold tracking-wider uppercase text-gray-500 dark:text-gray-400">
-								Key points
-							</h5>
-							<ul className="list-disc list-inside text-gray-800 dark:text-gray-200 space-y-2 text-base md:text-lg">
-								{selectedConcept.details.map((d, i) => (
-									<li key={i}>{d}</li>
-								))}
-							</ul>
-						</div>
-						{/* Removed bottom Close to keep a single Close button at top-right */}
-					</div>
-				</div>
-			)}
+			<DetailModal
+				isOpen={dialogOpen}
+				onClose={closeDialog}
+				title={selectedConcept?.name || ""}
+				subtitle={selectedConcept?.symbol}
+				description={selectedConcept?.description || ""}
+				theme={theme}
+			>
+				<div className="detail-section-title">Key Points</div>
+				<ul className="list-disc list-inside text-gray-800 dark:text-gray-200 space-y-2 text-base md:text-lg">
+					{selectedConcept?.details.map((d, i) => (
+						<li key={i}>{d}</li>
+					))}
+				</ul>
+			</DetailModal>
 		</div>
 	);
 };

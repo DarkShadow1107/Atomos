@@ -10,6 +10,7 @@
 	justify-content: center;
 	z-index: 1000;
 }
+/* Theme-specific modal backgrounds and borders */
 .modal-content {
 	background: #fff;
 	border-radius: 18px;
@@ -24,10 +25,55 @@
 	gap: 0.5rem;
 	border: 1.5px solid #e0e7ef;
 }
+
+/* Dark Theme */
 .theme-dark .modal-content {
-	background: #23272f;
-	box-shadow: 0 4px 24px 0 rgba(46, 205, 192, 0.1), 0 1.5px 8px 0 #23252633;
-	border: 1.5px solid #23272f;
+	background: linear-gradient(145deg, #1e2124 0%, #2f3136 100%);
+	box-shadow: 0 8px 32px rgba(0, 0, 0, 0.4), 0 4px 16px rgba(46, 205, 192, 0.1);
+	border: 1.5px solid #40444b;
+}
+
+/* Light Theme */
+.theme-light .modal-content {
+	background: linear-gradient(145deg, #ffffff 0%, #f8fafc 100%);
+	box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1), 0 4px 16px rgba(14, 165, 233, 0.1);
+	border: 1.5px solid #e2e8f0;
+}
+
+/* Solarized Theme */
+.theme-solarized .modal-content {
+	background: linear-gradient(145deg, #fdf6e3 0%, #eee8d5 100%);
+	box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1), 0 4px 16px rgba(181, 137, 0, 0.2);
+	border: 1.5px solid #93a1a1;
+}
+
+/* Pastel Theme */
+.theme-pastel .modal-content {
+	background: linear-gradient(145deg, #fef7ff 0%, #f3e8ff 100%);
+	box-shadow: 0 8px 32px rgba(236, 72, 153, 0.2), 0 4px 16px rgba(167, 139, 250, 0.2);
+	border: 1.5px solid #e9d5ff;
+}
+
+/* Forest Theme */
+.theme-forest .modal-content {
+	background: linear-gradient(145deg, #0f1419 0%, #1a2332 100%);
+	box-shadow: 0 8px 32px rgba(0, 0, 0, 0.4), 0 4px 16px rgba(34, 197, 94, 0.2);
+	border: 1.5px solid #065f46;
+}
+
+/* Peach Theme */
+.theme-peach .modal-content {
+	background: linear-gradient(145deg, #fff7ed 0%, #fed7aa 100%);
+	box-shadow: 0 8px 32px rgba(251, 146, 60, 0.2), 0 4px 16px rgba(251, 113, 133, 0.2);
+	border: 1.5px solid #fdba74;
+}
+
+/* Windows 98 Theme */
+.theme-win98 .modal-content {
+	background: #c0c0c0;
+	box-shadow: inset -1px -1px 0 #808080, inset 1px 1px 0 #fff, 2px 2px 4px #000;
+	border: 2px outset #c0c0c0;
+	border-radius: 0;
 }
 .close-btn {
 	position: absolute;
@@ -61,12 +107,15 @@
 	height: 100%;
 	line-height: 1;
 }
+/* Close button theme styles */
 .close-btn:hover,
 .close-btn:focus {
 	background: #e81123;
 	color: #fff;
 	box-shadow: 0 2px 8px 0 rgba(232, 17, 35, 0.12);
 }
+
+/* Dark Theme */
 .theme-dark .modal-content .close-btn {
 	background: transparent;
 	color: #b0b8c1;
@@ -77,6 +126,69 @@
 	background: #e81123;
 	color: #fff;
 }
+
+/* Light Theme */
+.theme-light .modal-content .close-btn {
+	color: #64748b;
+}
+.theme-light .modal-content .close-btn:hover,
+.theme-light .modal-content .close-btn:focus {
+	background: #e81123;
+	color: #fff;
+}
+
+/* Solarized Theme */
+.theme-solarized .modal-content .close-btn {
+	color: #657b83;
+}
+.theme-solarized .modal-content .close-btn:hover,
+.theme-solarized .modal-content .close-btn:focus {
+	background: #dc322f;
+	color: #fdf6e3;
+}
+
+/* Pastel Theme */
+.theme-pastel .modal-content .close-btn {
+	color: #9ca3af;
+}
+.theme-pastel .modal-content .close-btn:hover,
+.theme-pastel .modal-content .close-btn:focus {
+	background: #f43f5e;
+	color: #fff;
+}
+
+/* Forest Theme */
+.theme-forest .modal-content .close-btn {
+	color: #9ca3af;
+}
+.theme-forest .modal-content .close-btn:hover,
+.theme-forest .modal-content .close-btn:focus {
+	background: #ef4444;
+	color: #fff;
+}
+
+/* Peach Theme */
+.theme-peach .modal-content .close-btn {
+	color: #a3a3a3;
+}
+.theme-peach .modal-content .close-btn:hover,
+.theme-peach .modal-content .close-btn:focus {
+	background: #f87171;
+	color: #fff;
+}
+
+/* Windows 98 Theme */
+.theme-win98 .modal-content .close-btn {
+	color: #000;
+	background: #c0c0c0;
+	border: 1px outset #c0c0c0;
+	border-radius: 0;
+}
+.theme-win98 .modal-content .close-btn:hover,
+.theme-win98 .modal-content .close-btn:focus {
+	background: #e0e0e0;
+	border: 1px inset #c0c0c0;
+}
 .modal-content h2 {
 	font-size: 1.18rem;
 	font-weight: 700;
@@ -84,24 +196,113 @@
 	color: #232526;
 	letter-spacing: 0.01em;
 }
+
+/* Dark Theme */
 .theme-dark .modal-content h2 {
 	color: #eaf6fb;
+}
+
+/* Light Theme */
+.theme-light .modal-content h2 {
+	color: #1e293b;
+}
+
+/* Solarized Theme */
+.theme-solarized .modal-content h2 {
+	color: #586e75;
+}
+
+/* Pastel Theme */
+.theme-pastel .modal-content h2 {
+	color: #4c1d95;
+}
+
+/* Forest Theme */
+.theme-forest .modal-content h2 {
+	color: #dcfce7;
+}
+
+/* Peach Theme */
+.theme-peach .modal-content h2 {
+	color: #9a3412;
+}
+
+/* Windows 98 Theme */
+.theme-win98 .modal-content h2 {
+	color: #000080;
+	font-family: "MS Sans Serif", sans-serif;
 }
 .modal-content p {
 	font-size: 0.98rem;
 	margin: 0.15rem 0;
-	color: #444;
 	line-height: 1.45;
 }
-.theme-dark .modal-content p {
-	color: #cfd8dc;
-}
+/* Two-color system: Labels (strong tags) and Values with different colors */
 .modal-content strong {
 	font-weight: 600;
-	color: #328b99;
+	color: #328b99; /* Label color - default */
 }
+
+/* Default theme text (values) */
+.modal-content p {
+	color: #4a5568; /* Value color - default */
+}
+
+/* Dark Theme */
 .theme-dark .modal-content strong {
-	color: #2ecdc0;
+	color: #2ecdc0; /* Label color */
+}
+.theme-dark .modal-content p {
+	color: #cfd8dc; /* Value color */
+}
+
+/* Light Theme */
+.theme-light .modal-content strong {
+	color: #0ea5e9; /* Label color */
+}
+.theme-light .modal-content p {
+	color: #334155; /* Value color */
+}
+
+/* Solarized Theme */
+.theme-solarized .modal-content strong {
+	color: #b58900; /* Label color */
+}
+.theme-solarized .modal-content p {
+	color: #657b83; /* Value color */
+}
+
+/* Pastel Theme */
+.theme-pastel .modal-content strong {
+	color: #a78bfa; /* Label color */
+}
+.theme-pastel .modal-content p {
+	color: #6b7280; /* Value color */
+}
+
+/* Forest Theme */
+.theme-forest .modal-content strong {
+	color: #22c55e; /* Label color */
+}
+.theme-forest .modal-content p {
+	color: #9ca3af; /* Value color */
+}
+
+/* Peach Theme */
+.theme-peach .modal-content strong {
+	color: #fb923c; /* Label color */
+}
+.theme-peach .modal-content p {
+	color: #78716c; /* Value color */
+}
+
+/* Windows 98 Theme */
+.theme-win98 .modal-content strong {
+	color: #000080; /* Label color */
+	font-weight: normal; /* Remove bold for Windows 98 theme */
+}
+.theme-win98 .modal-content p {
+	color: #000000; /* Value color */
 }
 .element-table {
 	width: 100%;
@@ -171,19 +372,91 @@ hr {
 	padding: 0.5rem 0.7rem 0.6rem 0.7rem;
 	box-shadow: 0 1.5px 6px 0 #b2fefa18;
 }
+
+/* Dark Theme */
 .theme-dark .modal-section {
 	background: rgba(46, 205, 192, 0.06);
 	box-shadow: 0 1.5px 6px 0 #23252633;
+}
+
+/* Light Theme */
+.theme-light .modal-section {
+	background: rgba(14, 165, 233, 0.06);
+	box-shadow: 0 1.5px 6px 0 rgba(14, 165, 233, 0.1);
+}
+
+/* Solarized Theme */
+.theme-solarized .modal-section {
+	background: rgba(181, 137, 0, 0.08);
+	box-shadow: 0 1.5px 6px 0 rgba(181, 137, 0, 0.15);
+}
+
+/* Pastel Theme */
+.theme-pastel .modal-section {
+	background: rgba(167, 139, 250, 0.08);
+	box-shadow: 0 1.5px 6px 0 rgba(167, 139, 250, 0.15);
+}
+
+/* Forest Theme */
+.theme-forest .modal-section {
+	background: rgba(34, 197, 94, 0.08);
+	box-shadow: 0 1.5px 6px 0 rgba(34, 197, 94, 0.15);
+}
+
+/* Peach Theme */
+.theme-peach .modal-section {
+	background: rgba(251, 146, 60, 0.08);
+	box-shadow: 0 1.5px 6px 0 rgba(251, 146, 60, 0.15);
+}
+
+/* Windows 98 Theme */
+.theme-win98 .modal-section {
+	background: #e0e0e0;
+	box-shadow: inset 1px 1px 0 #fff, inset -1px -1px 0 #808080;
+	border-radius: 0;
 }
 .modal-section > p:first-child {
 	font-size: 1.04rem;
 	font-weight: 700;
 	margin-bottom: 0.18rem;
-	color: #328b99;
+	color: #328b99; /* Same as strong/label color - default */
 	letter-spacing: 0.01em;
 }
+
+/* Dark Theme */
 .theme-dark .modal-section > p:first-child {
-	color: #2ecdc0;
+	color: #2ecdc0; /* Same as strong/label color */
+}
+
+/* Light Theme */
+.theme-light .modal-section > p:first-child {
+	color: #0ea5e9; /* Same as strong/label color */
+}
+
+/* Solarized Theme */
+.theme-solarized .modal-section > p:first-child {
+	color: #b58900; /* Same as strong/label color */
+}
+
+/* Pastel Theme */
+.theme-pastel .modal-section > p:first-child {
+	color: #a78bfa; /* Same as strong/label color */
+}
+
+/* Forest Theme */
+.theme-forest .modal-section > p:first-child {
+	color: #22c55e; /* Same as strong/label color */
+}
+
+/* Peach Theme */
+.theme-peach .modal-section > p:first-child {
+	color: #fb923c; /* Same as strong/label color */
+}
+
+/* Windows 98 Theme */
+.theme-win98 .modal-section > p:first-child {
+	color: #000080; /* Same as strong/label color */
+	font-weight: normal; /* Remove bold from section headers for Windows 98 theme */
 }
 .electron-config {
 	font-family: "Product Sans", "Segoe UI", Arial, sans-serif;
@@ -201,4 +474,44 @@ hr {
 	margin-left: 0.04em;
 	font-weight: 500;
 	letter-spacing: 0.01em;
+}
+
+/* Ensure value text specifically gets the right colors - Higher specificity */
+.modal-content .modal-section p {
+	color: #4a5568 !important; /* Default value color */
+}
+
+/* Dark Theme - Value text */
+.theme-dark .modal-content .modal-section p {
+	color: #cfd8dc !important; /* Value color */
+}
+
+/* Light Theme - Value text */
+.theme-light .modal-content .modal-section p {
+	color: #334155 !important; /* Value color */
+}
+
+/* Solarized Theme - Value text */
+.theme-solarized .modal-content .modal-section p {
+	color: #657b83 !important; /* Value color */
+}
+
+/* Pastel Theme - Value text */
+.theme-pastel .modal-content .modal-section p {
+	color: #6b7280 !important; /* Value color */
+}
+
+/* Forest Theme - Value text */
+.theme-forest .modal-content .modal-section p {
+	color: #9ca3af !important; /* Value color */
+}
+
+/* Peach Theme - Value text */
+.theme-peach .modal-content .modal-section p {
+	color: #78716c !important; /* Value color */
+}
+
+/* Windows 98 Theme - Value text */
+.theme-win98 .modal-content .modal-section p {
+	color: #000000 !important; /* Value color */
 }

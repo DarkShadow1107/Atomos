@@ -1,5 +1,5 @@
 .navbar {
-	width: 100vw;
+	width: 95.95vw !important;
 	background: rgba(255, 255, 255, 0.02);
 	backdrop-filter: blur(20px);
 	position: absolute;
@@ -287,4 +287,13 @@ main {
 	background: rgba(14, 165, 233, 0.1);
 	color: #0ea5e9;
 	box-shadow: 0 0 10px rgba(14, 165, 233, 0.3), 0 0 20px rgba(14, 165, 233, 0.2);
+}
+
+/* Theme-specific nav-link text colors for better visibility */
+.theme-light .nav-link {
+	color: #9ca3af;
+}
+
+.theme-pastel .nav-link {
+	color: #9ca3af;
 }
